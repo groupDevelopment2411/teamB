@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="updateForm.css">
+    <title>社員情報更新画面</title>
+</head>
+<body>
+   <div class="wrapper">
+    <form action="/updateCheck.html" method="post">
+      <div class="rist">
+        <div class="id">
+          <label for="id">社員ID</label>
+          <input type="number" id="id" name="id">
+        </div> 
+        <div class="name">
+            <label for="name">社員名</label>
+            <input type="text" id="text" name="text">
+        </div>
+        <div class="age">
+            <label for="age">年齢</label>
+            <input type="number" id="age" name="age">
+        </div>
+        <div class="password">
+            <label for="password">パスワード</label>
+            <input type="password" id="password" name="password">
+        </div>
+        <div class="passwordCheck">
+            <label for="passwordCheck">パスワード確認</label>
+            <input type="passwordCheck" id="passwordCheck" name="passwordCheck">
+        </div> 
+        <div class="start">
+            <label for="start">開始日</label>
+            <input type="date" id="start" name="start">
+        </div> 
+        <div class="end">
+            <label for="end">終了日</label>
+            <input type="date" id="end" name="end">
+        </div>  
+      </div> 
+    </form>
+   </div>  
+</body>
+</html>
