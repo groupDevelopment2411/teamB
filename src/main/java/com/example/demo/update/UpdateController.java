@@ -1,5 +1,7 @@
 package com.example.demo.update;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,20 +23,21 @@ public class UpdateController {
 	
 	
 	@PostMapping("/updateResult")
-	public void update(
+	public String update(
 			Model m,
 			@RequestParam("id") int id,
 			@RequestParam("name") String name,
 			@RequestParam("age") int age,
-			@RequestParam("start_date") String start_date,
-			@RequestParam("end_date") String end_date,
+			@RequestParam("start_date") Date start_date,
+			@RequestParam("end_date") Date end_date,
 			@RequestParam("password") String password
 	)
 	{
 
 		UpDate employee = new UpDate(id, name, age, start_date, end_date, password);
 		servise.UpDate(employee);
-		m.addAttribute("msg", "社員情報の更新が完了しました。");
+		 m.addAttribute("msg", "社員情報の更新が完了しました。");
+		 return "updateResult";
 		
 		
 	}

@@ -1,16 +1,18 @@
 package com.example.demo.update;
 
+import java.util.Date;
+
 public class UpDate {
 	
 	private int id;
 	private String name;
 	private int age;
-	private String start_date;
-	private String end_date;
+	private Date start_date;
+	private Date end_date;
 	private String password;
 	
 	public UpDate() {};
-	public UpDate(int id, String name, int age, String start_date, String end_date, String password) {
+	public UpDate(int id, String name, int age, Date start_date, Date end_date, String password) {
 		
 		this.id = id;
 		this.name = name;
@@ -45,19 +47,19 @@ public class UpDate {
 		this.age = age;
 	}
 	
-	public String getStart_date() {
+	public Date getStart_date() {
 		return this.start_date;
 	}
 	
-	public void setStart_date(String start_date) {
+	public void setStart_date(Date start_date) {
 		this.start_date = start_date;
 	}
 	
-	public String getEnd_date() {
+	public Date getEnd_date() {
 		return this.end_date;
 	}
 	
-	public void setEnd_date(String end_date) {
+	public void setEnd_date(Date end_date) {
 		this.end_date = end_date;
 	}
 	
