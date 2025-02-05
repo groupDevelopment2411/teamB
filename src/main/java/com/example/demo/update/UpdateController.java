@@ -19,11 +19,22 @@ public class UpdateController {
 		return "updateForm";
 	}
 	
-	@RequestMapping("/updateCheak")
-	
+	@PostMapping("/updateCheak")
+	public String updateCheak(
+			Model m,
+			@RequestParam("id") int id,
+			@RequestParam("name") String name,
+			@RequestParam("age") int age,
+			@RequestParam("start_date") String start_date,
+			@RequestParam("end_date") String end_date,
+			@RequestParam("password") String password
+			) {
+		m.addAttribute("msg", "こちらで更新します。よろしいですか？");
+		return "updateResult";
+	}
 	
 	@PostMapping("/updateResult")
-	public String update(
+	public String updateResult(
 			Model m,
 			@RequestParam("id") int id,
 			@RequestParam("name") String name,
@@ -35,10 +46,9 @@ public class UpdateController {
 	{
 
 		UpDate employee = new UpDate(id, name, age, start_date, end_date, password);
-		servise.UpDate(employee);
+		servise.update(employee);
 		 m.addAttribute("msg", "社員情報の更新が完了しました。");
-		 return "updateResult";
-		
+		 return "updateResult";	
 		
 	}
 		

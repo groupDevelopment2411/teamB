@@ -2,9 +2,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>社員情報更新画面</title>
 </head>
 <body>
+	<form action="/updateResult" method="post">
+		
+		<p th:text="${msg}">
+		 <div class="button">
+		   		   <button type="submit">確認</button>
+		   	       <p class="delete">削除</p>
+		   	       <p class="back">戻る</p>
+		  </div>
+	   </form>
 
 </body>
 </html>
