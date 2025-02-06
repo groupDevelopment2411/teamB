@@ -27,10 +27,19 @@ public class UpdateController {
 			@RequestParam("age") int age,
 			@RequestParam("start_date") String start_date,
 			@RequestParam("end_date") String end_date,
-			@RequestParam("password") String password
+			@RequestParam("password") String password,
+			@RequestParam("passwordCheck") String passwordCheck
 			) {
+		 m.addAttribute("id", id);
+	        m.addAttribute("name", name);
+	        m.addAttribute("age", age);
+	        m.addAttribute("start_Date", start_date);
+	        m.addAttribute("end_Date", end_date);
+	        m.addAttribute("password", password);
+	        m.addAttribute("passwordCheck", passwordCheck);
+		
 		m.addAttribute("msg", "こちらで更新します。よろしいですか？");
-		return "updateResult";
+		return "updateCheak";
 	}
 	
 	@PostMapping("/updateResult")

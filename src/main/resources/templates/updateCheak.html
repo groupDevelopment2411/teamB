@@ -6,14 +6,47 @@
 </head>
 <body>
 	<form action="/updateResult" method="post">
+		<div class="id">
+		  <label for="id">社員ID<span th:text="${id}"></span></label>
+		   <input type="hidden" id="id" name="id" th:value="${id}">
+		</div>
 		
-		<p th:text="${msg}">
+		<div class="name">   
+		  <label for="name">社員名<span th:text="${name}"></span></label>
+		   <input type="hidden" id="name" name="name" th:value="${name}">
+		</div>
+		
+		<div class="age">
+		  <label for="age">年齢<span th:text="${age}"></span></label>
+		   <input type="hidden" id="age" name="age" th:value="${age}">
+		</div>
+		
+		<div class="password">
+		  <label for="password">パスワード<span th:text="${password}"></span></label>
+		   <input type="hidden" id="password" name="password" th:value="${password}">
+		</div>
+		
+		<div class="passwordCheck">
+		  <label for="passwordCheck">パスワード確認<span th:text="${passwordCheck}"></span></label>
+		   <input type="hidden" id="passwordCheck" name="passwordCheck" th:value="${passwordCheck}">
+		</div>
+		
+		<div class="start_date">
+		  <label for="start_date">開始日<span th:text="${start_date}"></span></label>
+		   <input type="hidden" id="start_date" name="start_date" th:value="${start_date}">
+		</div>
+		
+		<div class="end_date">
+		  <label for="end_date">終了日<span th:text="${end_date}"></span></label>
+		   <input type="hidden" id="end_date" name="end_date" th:value="${end_date}">
+		</div> 
+		
+		<p th:text="${msg}"></p>
 		 <div class="button">
-		   		   <button type="submit">確認</button>
-		   	       <p class="delete">削除</p>
+		   		   <button type="submit">更新</button>
 		   	       <p class="back">戻る</p>
 		  </div>
-	   </form>
+	</form>
 
 </body>
 </html>
