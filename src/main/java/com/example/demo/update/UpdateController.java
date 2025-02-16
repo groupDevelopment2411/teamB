@@ -1,5 +1,7 @@
 package com.example.demo.update;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +32,23 @@ public class UpdateController {
 			@RequestParam("password") String password,
 			@RequestParam("passwordCheck") String passwordCheck
 			) {
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date startDate = (null);
+		Date endDate = (null);
+		//String formattedStartDate = "";
+	    //String formattedEndDate = "";
+		try {
+		    startDate = dateFormat.parse(start_date);
+		    endDate = dateFormat.parse(end_date);
+		}catch(ParseException e){
+			e.printStackTrace();
+		}
 		 m.addAttribute("id", id);
 	        m.addAttribute("name", name);
 	        m.addAttribute("age", age);
-	        m.addAttribute("start_Date", start_date);
-	        m.addAttribute("end_Date", end_date);
+	        m.addAttribute("startDate", startDate);
+	        m.addAttribute("endDate", endDate);
 	        m.addAttribute("password", password);
 	        m.addAttribute("passwordCheck", passwordCheck);
 		
@@ -48,19 +62,27 @@ public class UpdateController {
 			@RequestParam("id") int id,
 			@RequestParam("name") String name,
 			@RequestParam("age") int age,
-			@RequestParam("start_date") Date start_date,
-			@RequestParam("end_date") Date end_date,
+			@RequestParam("start_date") String start_date,
+			@RequestParam("end_date") String end_date,
 			@RequestParam("password") String password
 	)
 	{
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date startDate = null;
+		Date endDate = null;
+		try {
+		    startDate = dateFormat.parse(start_date);
+		    endDate = dateFormat.parse(end_date);
+		}catch(ParseException e){
+			e.printStackTrace();
+		}
 
-		UpDate employee = new UpDate(id, name, age, start_date, end_date, password);
+		UpDate employee = new UpDate(id, name, age, startDate, endDate, password);
 		servise.update(employee);
 		 m.addAttribute("msg", "社員情報の更新が完了しました。");
 		 return "updateResult";	
 		
-	}
-		
-	
+	}	
 
 }

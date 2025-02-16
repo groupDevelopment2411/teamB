@@ -1,1 +1,73 @@
 @charset "UTF-8";
+
+body {
+	
+}
+
+
+.wrapper {
+	display: block;
+	width: 90%;
+	border-top: solid 1px;
+	margin: 0 auto;
+}
+
+.rist {
+	display: block;
+	width: 70%;
+	
+}
+
+
+.item {
+	display: flex;
+	align-items: center;
+	font-weight: bold;
+}
+		
+label {
+	display: block;
+	
+
+}
+
+input {
+	display: flex;
+	
+	height: 30px;
+}
+/*
+.id{
+	display: flex;
+    align-items: center;
+}
+
+.name {
+	display: flex;
+    align-items: center;
+}
+
+.age {
+	display: flex;
+	align-items: center;
+}
+
+.password {
+	display: flex;
+	align-items: center;
+}
+
+.passwordCheck{
+	display: flex;
+	align-items: center;
+}
+
+.start_date {
+	display: flex;
+	align-items: center;
+}
+
+.end_date{
+	display: flex;
+	align-items: center;
+}

@@ -26,7 +26,7 @@ document.getElementById("updateForm").addEventListener("submit",function(e){
 		return;
 	}
 	
-	if(!/^(?=.*[A-Za-z])(?=.*\d)$/.test(password)){
+	if(!/^(?=.*[A-Za-z])(?=.*\d).{8,}$/.test(password)){
 		alert("パスワードは半角英字と半角数字の両方を使用してください。");
 		e.preventDefault();
 		return;
@@ -43,4 +43,29 @@ document.getElementById("updateForm").addEventListener("submit",function(e){
 		e.preventDefault();
 		return;
 	}
+	
+
+	
+	
 })
+
+/*document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("updateForm");
+	
+	form.addEventListener("submit", function (e){
+		
+	const startDateInput = document.getElementById("start_date");
+	const endDateInput = document.getElementById("end_date");
+	
+	if(startDateInput.value){
+			const formattedStartDate = startDateInput.value.replace(/-/g, "/");
+			startDateInput.value = formattedStartDate;
+	}
+	
+	if(endDateInput.value){
+		const formattedEndDate = endDateInput.value.replace(/-/g, "/");
+		endDateInput.value = formattedEndDate;
+	}
+	
+});
+});*/

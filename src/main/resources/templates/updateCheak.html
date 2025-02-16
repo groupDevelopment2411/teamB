@@ -2,49 +2,51 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="/updateCheak.js" defer></script>
 <title>社員情報更新画面</title>
 </head>
 <body>
 	<form action="/updateResult" method="post">
 		<div class="id">
 		  <label for="id">社員ID<span th:text="${id}"></span></label>
-		   <input type="hidden" id="id" name="id" th:value="${id}">
+		   <input type="number" id="id" name="id" th:value="${id}" readonly>
 		</div>
 		
 		<div class="name">   
 		  <label for="name">社員名<span th:text="${name}"></span></label>
-		   <input type="hidden" id="name" name="name" th:value="${name}">
+		   <input type="text" id="name" name="name" th:value="${name}" readonly>
 		</div>
 		
 		<div class="age">
 		  <label for="age">年齢<span th:text="${age}"></span></label>
-		   <input type="hidden" id="age" name="age" th:value="${age}">
+		   <input type="number" id="age" name="age" th:value="${age}" readonly>
 		</div>
 		
 		<div class="password">
 		  <label for="password">パスワード<span th:text="${password}"></span></label>
-		   <input type="hidden" id="password" name="password" th:value="${password}">
+		   <input type="password" id="password" name="password" th:value="${password}" readonly>
 		</div>
 		
 		<div class="passwordCheck">
 		  <label for="passwordCheck">パスワード確認<span th:text="${passwordCheck}"></span></label>
-		   <input type="hidden" id="passwordCheck" name="passwordCheck" th:value="${passwordCheck}">
+		   <input type="password" id="passwordCheck" name="passwordCheck" th:value="${passwordCheck}" readonly>
 		</div>
 		
 		<div class="start_date">
-		  <label for="start_date">開始日<span th:text="${start_date}"></span></label>
-		   <input type="hidden" id="start_date" name="start_date" th:value="${start_date}">
+		  <label for="start_date">開始日<!--<span th:text="${#dates.format(startDate, 'yyyy-MM-dd')}"></span>--></label>
+		   <input type="date" id="start_date" name="start_date" th:value="${#dates.format(startDate, 'yyyy-MM-dd')}" readonly>
 		</div>
 		
 		<div class="end_date">
-		  <label for="end_date">終了日<span th:text="${end_date}"></span></label>
-		   <input type="hidden" id="end_date" name="end_date" th:value="${end_date}">
+		  <label for="end_date">終了日<!--<span th:text="${#dates.format(endDate, 'yyyy-MM-dd')}"></span>--></label>
+		   <input type="date" id="end_date" name="end_date" th:value="${#dates.format(endDate, 'yyyy-MM-dd')}" readonly>
 		</div> 
 		
 		<p th:text="${msg}"></p>
 		 <div class="button">
 		   		   <button type="submit">更新</button>
-		   	       <p class="back">戻る</p>
+				   <form action="/updateForm" method="post">		
+		   	           <p class="back">戻る</p>
 		  </div>
 	</form>
 
