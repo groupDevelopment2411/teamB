@@ -16,12 +16,38 @@ public class UpdateController {
 	@Autowired
 	private UpdateService servise;
 	
+	@RequestMapping("/idSearch")
+	public String idSearch() {
+		return "idSearch";
+	}
+	
 	@RequestMapping("/updateForm")
-	public String updateForm() {
+	public String updateForm(){
 		return "updateForm";
 	}
 	
-	@PostMapping("/updateCheak")
+	@PostMapping("/updateForm")
+	public String updateForm(
+			Model m,
+			@RequestParam("id") int id,
+			@RequestParam("name") String name,
+			@RequestParam("age") int age,
+			@RequestParam("start_date") String start_date,
+			@RequestParam("end_date") String end_date,
+			@RequestParam("password") String password,
+			@RequestParam("passwordCheck") String passwordCheck
+			) {
+		    m.addAttribute("id", id);
+	        m.addAttribute("name", name);
+	        m.addAttribute("age", age);
+	        m.addAttribute("start_date", start_date);
+	        m.addAttribute("end_date", end_date);
+	        m.addAttribute("password", password);
+	        m.addAttribute("passwordCheck", passwordCheck);
+		return "updateForm";
+	}
+	
+	@PostMapping("/updateCheck")
 	public String updateCheak(
 			Model m,
 			@RequestParam("id") int id,
@@ -36,8 +62,7 @@ public class UpdateController {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date startDate = (null);
 		Date endDate = (null);
-		//String formattedStartDate = "";
-	    //String formattedEndDate = "";
+
 		try {
 		    startDate = dateFormat.parse(start_date);
 		    endDate = dateFormat.parse(end_date);
@@ -53,7 +78,7 @@ public class UpdateController {
 	        m.addAttribute("passwordCheck", passwordCheck);
 		
 		m.addAttribute("msg", "こちらで更新します。よろしいですか？");
-		return "updateCheak";
+		return "updateCheck";
 	}
 	
 	@PostMapping("/updateResult")

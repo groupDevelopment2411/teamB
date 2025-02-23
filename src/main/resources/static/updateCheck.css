@@ -33,10 +33,13 @@ input {
 	height: 30px;
 }
 
+.msg{
+	text-align: center;
+}
+
 .button{
 	display: flex;
 	justify-content: center;
-	
 }
 
 button{

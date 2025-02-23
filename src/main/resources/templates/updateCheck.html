@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/updateCheck.css">
+<script src="/updateCheck.js" defer></script>
+<title>社員情報更新画面</title>
+</head>
+<body>
+	
+	<div class="header">
+		  <header>
+			<h2><span style="color: red;">社員情報更新(確認)</span></h2>
+			
+		  </header>
+	</div>
+	
+    <div class="wrapper">	
+
+	  <form id="updateCheck" action="/updateResult" method="post">
+		
+		<div class="rist">
+	 
+		  <div class="item">
+		     <label for="id">社員ID</label>
+		     <input type="number" id="id" name="id" th:value="${id}" readonly>
+		  </div>
+		
+		  <div class="item">   
+		     <label for="name">社員名<span style="color: red;">＊</span></label>
+		     <input type="text" id="name" name="name" th:value="${name}" readonly>
+		  </div>
+		
+		  <div class="item">
+		     <label for="age">年齢<span style="color: red;">＊</span></label>
+		     <input type="number" id="age" name="age" th:value="${age}" readonly>
+		  </div>
+		
+		  <div class="item">
+		     <label for="password">パスワード<span style="color: red;">＊</span></label>
+		     <input type="password" id="password" name="password" th:value="${password}" readonly>
+		  </div>
+		
+		  <div class="item">
+		     <label for="passwordCheck">パスワード確認</label>
+		     <input type="password" id="passwordCheck" name="passwordCheck" th:value="${passwordCheck}" readonly>
+		  </div>
+		
+		  <div class="item">
+		     <label for="start_date">開始日<span style="color: red;">＊</span></label>
+		     <input type="date" id="start_date" name="start_date" th:value="${#dates.format(startDate, 'yyyy-MM-dd')}" readonly>
+		  </div>
+		
+		  <div class="item">
+		    <label for="end_date">終了日</label>
+		     <input type="date" id="end_date" name="end_date" th:value="${#dates.format(endDate, 'yyyy-MM-dd')}" readonly>
+		  </div> 
+		
+		  <p class="msg" th:text="${msg}"></p>
+		
+	  </div>
+		 	 
+	 </form>
+	 
+	 <div class="button">
+	 		<button type="submit" form="updateCheck">更新</button>
+	 	
+	
+	    <form action="/updateForm" method="post">
+		    <input type="hidden" name="id" th:value="${id}">
+		    <input type="hidden" name="name" th:value="${name}">
+		    <input type="hidden" name="age" th:value="${age}">
+   	        <input type="hidden" name="password" th:value="${password}">
+		    <input type="hidden" name="passwordCheck" th:value="${passwordCheck}">
+			<input type="hidden" name="start_date" th:value="${#dates.format(startDate, 'yyyy-MM-dd')}">
+		    <input type="hidden" name="end_date" th:value="${#dates.format(endDate, 'yyyy-MM-dd')}">
+		 		 
+		     <button type="submit">戻る</button>
+	  	 
+	    </form>
+	 </div>
+  </div>
+  
+  <footer>
+  	<p>Copyright &copy; 2022</p>
+  </footer>
+  
+</body>
+</html>

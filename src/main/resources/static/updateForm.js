@@ -2,13 +2,20 @@
  * 
  */
 document.getElementById("updateForm").addEventListener("submit",function(e){
+	const id = document.getElementById("id").value;
 	const name = document.getElementById("name").value;
 	const age = document.getElementById("age").value;
 	const password = document.getElementById("password").value;
 	const passwordCheck = document.getElementById("passwordCheck").value;
 	const start_date = document.getElementById("start_date").value;
 	
-	if(!name.trim()){ //trim()を使うことで、入力フィールドにスペース(空白)だけが入っている場合もエラーにできる(空白を空文字とし、未入力として扱えるようになる)。
+	if(!id.trim()){ //trim()を使うことで、入力フィールドにスペース(空白)だけが入っている場合もエラーにできる(空白を空文字とし、未入力として扱えるようになる)。
+		alert("IDが入力されていません。")
+		e.preventDefault()
+		return;
+	}
+	
+	if(!name.trim()){ 
 		alert("名前が入力されていません。");
 		e.preventDefault();
 		return;
@@ -43,29 +50,19 @@ document.getElementById("updateForm").addEventListener("submit",function(e){
 		e.preventDefault();
 		return;
 	}
-	
-
-	
+		
 	
 })
 
-/*document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById("updateForm");
+function formReset() {
+	document.getElementById("updateForm").reset();
 	
-	form.addEventListener("submit", function (e){
-		
-	const startDateInput = document.getElementById("start_date");
-	const endDateInput = document.getElementById("end_date");
-	
-	if(startDateInput.value){
-			const formattedStartDate = startDateInput.value.replace(/-/g, "/");
-			startDateInput.value = formattedStartDate;
-	}
-	
-	if(endDateInput.value){
-		const formattedEndDate = endDateInput.value.replace(/-/g, "/");
-		endDateInput.value = formattedEndDate;
-	}
-	
-});
-});*/
+	document.getElementById("id").value = "";
+	document.getElementById("name").value = "";
+	document.getElementById("age").value = "";
+	document.getElementById("password").value = "";
+	document.getElementById("passwordCheck").value = "";
+	document.getElementById("start_date").value = "";
+	document.getElementById("end_date").value = "";
+}
+

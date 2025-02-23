@@ -2,10 +2,32 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/updateResult.css">
 <title>社員情報更新画面</title>
 </head>
 <body>
-	<p th:text="${msg}"></p>
+	
+	<div class="header">
+		 <header>
+			<h2><span style="color: red;">社員情報更新(完了)</span></h2>
+				
+		</header>
+	</div>
+	
+	<div class="text">
+	  <p th:text="${msg}"></p>
+	</div>
+	  
+	<div class="button">
+		<button type="button" onclick="location.href='/mainMenu'">メニュー</button>
+		<button type="button" onclick="location.href='/selectForm'">検索へ</button>
+	</div>
+	
+	<footer>
+		<p>Copyright &copy; 2022</p>
+	</footer>
 
 </body>
 </html>

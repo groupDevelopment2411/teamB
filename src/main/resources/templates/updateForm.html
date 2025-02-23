@@ -9,47 +9,59 @@
     <title>社員情報更新画面</title>
 </head>
 <body>
+	
+	<div class="header">
+	  <header>
+		<h2><span style="color: red;">社員情報更新(入力)</span></h2>
+		
+	  </header>
+	</div>
+	
    <div class="wrapper">
-    <form action="/updateCheak" method="post" id="updateForm">
+    <form action="/updateCheck" method="post" id="updateForm">
       <div class="rist">
         <div class="item">
           <label for="id">社員ID</label>
-          <input type="number" id="id" name="id">
+          <input type="number" pattern="^[0-9]+$" id="id" name="id" th:value="${id}">
         </div> 
         <div class="item">
             <label for="name">社員名<span style="color: red;">＊</span></label>
-            <input type="text" id="name" name="name" >
+            <input type="text" id="name" name="name" th:value="${name}">
         </div>
         <div class="item">
             <label for="age">年齢<span style="color: red;">＊</span></label>
-            <input type="number" id="age" name="age">
+            <input type="number" pattern="^[0-9]+$" id="age" name="age" th:value="${age}">
         </div>
         <div class="item"> 
             <label for="password">パスワード<span style="color: red;">＊</span></label>
-            <input type="password" pattern="^[a-zA-Z0-9]+$" minlength="8" id="password" name="password">
+            <input type="password" pattern="^[a-zA-Z0-9]+$" minlength="8" id="password" name="password" th:value="${password}">
         </div>
         <div class="item">
             <label for="passwordCheck">パスワード確認</label>
-            <input type="password" pattern="^[a-zA-Z0-9]+$" minlength="8" id="passwordCheck" name="passwordCheck" >
+            <input type="password" pattern="^[a-zA-Z0-9]+$" minlength="8" id="passwordCheck" name="passwordCheck" th:value="${passwordCheck}">
         </div> 
         <div class="item">
             <label for="start_date">開始日<span style="color: red;">＊</span></label>
-            <input type="date" id="start_date" name="start_date">
+            <input type="date" id="start_date" name="start_date" th:value="${start_date}">
         </div> 
         <div class="item">
             <label for="end_date">終了日</label>
-            <input type="date" id="end_date" name="end_date">
+            <input type="date" id="end_date" name="end_date" th:value="${end_date}">
         </div>  
       </div> 
 	  
 	  <div class="button">
 	  		   <button type="submit">確認</button>
-	  	       <p class="delete">削除</p>
-	  	       <p class="back">戻る</p>
-	       </div>
+	  	       <button type="button" onclick="formReset()">削除</button>
+	  	       <button type="button">戻る</button>
+	   </div>
     </form>
-	
-	
-   </div>  
+
+   </div> 
+   
+   <footer>
+	<p>Copyright &copy; 2022</p>
+   </footer>
+    
 </body>
 </html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>社員ID検索画面</title>
+</head>
+<body>
+	<div class="wrapper">
+		<form action="/updateForm" method="post" id="idSearch">
+			<div class="rist">
+				<div class="search">
+					<label for="id">社員ID</label>
+					<input type="number" pattern="^[0-9]+$" id="id" name="id" th:value="${id}">
+				</div>
+			</div>
+			
+			<div class="button">
+			  		   <button type="submit">確認</button>
+			  	       <button type="button" onclick="formReset()">削除</button>
+			  	       <button type="button">戻る</button>
+			</div>
+		</form>	
+	</div>
+
+</body>
+</html>
