@@ -11,9 +11,8 @@
 .rist {
 	font-weight: bold;
 	display: flex;
-	justify-content: center;
-	align-items: center;
 	flex-direction: column;
+	align-items: center;
 	width: 90%;
 	margin: 0 auto;
 	border-top: solid 1px;
@@ -21,16 +20,22 @@
 }
 
 .item{
+	display: flex;
     align-items: center;
-	padding: 15px
+	justify-content: flex-start;
+	padding: 15px;
 }
 		
 label {
+	width: 150px;
+	text-align: left;
 	padding-right: 15px;
 }
 
 input {
+	width: 150px;
 	height: 30px;
+	border: 1px solid;
 }
 
 .button{
@@ -41,6 +46,21 @@ input {
 
 button{
 	margin: 10px;
+}
+
+.check{
+	background-color: lemonchiffon;
+	border: 1px solid;
+}
+
+.delete{
+	background-color: lightcoral;
+	border: 1px solid;
+}
+
+.back{
+	background-color: white;
+	border: 1px solid;
 }
 
 footer {

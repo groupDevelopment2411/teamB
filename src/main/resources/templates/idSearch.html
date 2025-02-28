@@ -2,25 +2,48 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>社員ID検索画面</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/idSearch.css">
+  <script src="/idSearch.js" defer></script>
+<title>社員情報更新画面</title>
 </head>
 <body>
+	
+	<div class="header">
+	    <header>
+		   <h2><span style="color: red;">社員情報更新(検索)</span></h2>
+			
+		</header>
+	</div>
+	
 	<div class="wrapper">
 		<form action="/updateForm" method="post" id="idSearch">
 			<div class="rist">
-				<div class="search">
+				<div class="item">
 					<label for="id">社員ID</label>
-					<input type="number" pattern="^[0-9]+$" id="id" name="id" th:value="${id}">
+					<input type="number" pattern="^[0-9]+$" id="id" name="id" >
 				</div>
+				
+				<div th:if="${error}">
+					<p th:text="${error}" style="color: red;"></p>
+				</div>
+				
 			</div>
 			
 			<div class="button">
-			  		   <button type="submit">確認</button>
-			  	       <button type="button" onclick="formReset()">削除</button>
-			  	       <button type="button">戻る</button>
+			  		   <button type="submit" class="search">検索</button>
+			  	       <button type="button" class="delete" onclick="formReset()">削除</button>
+			  	       <button type="button" class="menu" onclick="location.href='/mainMenu'">メニュー</button>
 			</div>
 		</form>	
+		
 	</div>
+	
+	<footer>
+	<p>Copyright &copy; 2022</p>
+	</footer>
 
 </body>
 </html>

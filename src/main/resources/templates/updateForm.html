@@ -22,7 +22,7 @@
       <div class="rist">
         <div class="item">
           <label for="id">社員ID</label>
-          <input type="number" pattern="^[0-9]+$" id="id" name="id" th:value="${id}">
+          <input type="number" pattern="^[0-9]+$" id="id" name="id" th:value="${id}" style="background-color: lightgray" readonly>
         </div> 
         <div class="item">
             <label for="name">社員名<span style="color: red;">＊</span></label>
@@ -30,7 +30,7 @@
         </div>
         <div class="item">
             <label for="age">年齢<span style="color: red;">＊</span></label>
-            <input type="number" pattern="^[0-9]+$" id="age" name="age" th:value="${age}">
+            <input type="number" pattern="^[0-9]+$" minlength="2" maxlength="3" id="age" name="age" th:value="${age}">
         </div>
         <div class="item"> 
             <label for="password">パスワード<span style="color: red;">＊</span></label>
@@ -51,12 +51,11 @@
       </div> 
 	  
 	  <div class="button">
-	  		   <button type="submit">確認</button>
-	  	       <button type="button" onclick="formReset()">削除</button>
-	  	       <button type="button">戻る</button>
+	  		   <button class="check" type="submit">確認</button>
+	  	       <button class="delete" type="button" onclick="formReset()">削除</button>
+	  	       <button class="back" type="button" onclick="location.href='/idSearch'">戻る</button>
 	   </div>
     </form>
-
    </div> 
    
    <footer>

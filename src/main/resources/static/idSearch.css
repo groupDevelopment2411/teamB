@@ -11,53 +11,53 @@
 .rist {
 	font-weight: bold;
 	display: flex;
-	flex-direction: column;
+	justify-content: center;
 	align-items: center;
+	flex-direction: column;
 	width: 90%;
+	padding: 200px 0 200px 0;
 	margin: 0 auto;
 	border-top: solid 1px;
 	border-bottom: solid 1px;
+
 }
 
 .item{
-	display: flex;
-	align-items: center;
-    justify-content: flex-start;
-	padding: 15px;
+    align-items: center;
+	padding: 15px
 }
-		
+
 label {
-	width: 150px;
-	text-align: left;
 	padding-right: 15px;
 }
 
 input {
-	width: 150px;
 	height: 30px;
 	border: 1px solid;
-}
-
-.msg{
-	text-align: center;
 }
 
 .button{
 	display: flex;
 	justify-content: center;
+	
 }
 
 button{
 	margin: 10px;
 }
 
-.update{
+.search{
 	background-color: lemonchiffon;
 	border: 1px solid;
 }
 
-.back{
-	background-color: white;
+.delete{
+	background-color: lightcoral;
+	border: 1px solid;
+}
+
+.menu{
+	background-color: aliceblue;
 	border: 1px solid;
 }
 

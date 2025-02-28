@@ -30,6 +30,16 @@ button{
 	margin: 10px;
 }
 
+.menu{
+	background-color: aliceblue;
+	border: 1px solid;
+}
+
+.select{
+	background-color: lemonchiffon;
+	border: 1px solid;
+}
+
 footer {
 	display: flex;
 	width: 90%;

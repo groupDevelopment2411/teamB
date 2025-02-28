@@ -57,7 +57,6 @@ document.getElementById("updateForm").addEventListener("submit",function(e){
 function formReset() {
 	document.getElementById("updateForm").reset();
 	
-	document.getElementById("id").value = "";
 	document.getElementById("name").value = "";
 	document.getElementById("age").value = "";
 	document.getElementById("password").value = "";

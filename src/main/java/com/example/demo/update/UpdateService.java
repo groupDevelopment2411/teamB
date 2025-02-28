@@ -1,5 +1,7 @@
 package com.example.demo.update;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,5 +13,9 @@ public class UpdateService {
 		public void update(UpDate employee) {
 			mapper.update(employee);
 		}
+		
+	public List<UpDate> selectById(int id) {
+		return mapper.selectById(id);
+	}
 
 }
