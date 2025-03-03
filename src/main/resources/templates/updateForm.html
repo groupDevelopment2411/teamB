@@ -48,14 +48,18 @@
             <label for="end_date">終了日</label>
             <input type="date" id="end_date" name="end_date" th:value="${end_date}">
         </div>  
-      </div> 
-	  
+      </div>
+	</form>   
+ 
 	  <div class="button">
-	  		   <button class="check" type="submit">確認</button>
-	  	       <button class="delete" type="button" onclick="formReset()">削除</button>
-	  	       <button class="back" type="button" onclick="location.href='/idSearch'">戻る</button>
+	  		<button class="check" type="submit" form="updateForm">確認</button>
+	  	    <button class="delete" type="button" onclick="formReset()">削除</button>
+		<form action="/idSearch" method="post">	 
+			<input type="hidden" name="id" th:value="${id}">  
+	  	    <button class="back" type="submit" name="back_button" value="back">戻る</button>
+		</form>	   
 	   </div>
-    </form>
+
    </div> 
    
    <footer>

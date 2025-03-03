@@ -23,7 +23,7 @@
 			<div class="rist">
 				<div class="item">
 					<label for="id">社員ID</label>
-					<input type="number" pattern="^[0-9]+$" id="id" name="id" >
+					<input type="number" pattern="^[0-9]+$" id="id" name="id" th:value="${id}">
 				</div>
 				
 				<div th:if="${error}">

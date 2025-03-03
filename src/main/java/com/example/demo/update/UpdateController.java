@@ -19,32 +19,66 @@ public class UpdateController {
 	private UpdateService service;
 	
 	@RequestMapping("/idSearch")
-	public String idSearch() {
+	public String idSearch(
+			Model m,
+			@RequestParam(value = "id", required = false) Integer id
+			) {
+		
+		if(id != null) {
+		List<UpDate> employeeList = service.selectById(id);
+		
+	    if (employeeList.isEmpty()) {
+	    	m.addAttribute("id", id);
+	        m.addAttribute("error", "入力された社員IDと一致するデータが見つかりませんでした。");
+	      }
+	    
+	    }
+		m.addAttribute("id", id);
 		return "idSearch";
 	}
 	
 	@PostMapping("/updateForm")
 	public String updateForm(
-			Model m, RedirectAttributes r,
-			@RequestParam(value = "id", required = false) int id,
+			Model m, 
+			RedirectAttributes r,
+			@RequestParam(value = "id", required = false) Integer id,
 			@RequestParam(value = "name", required = false) String name,
 			@RequestParam(value = "age", required = false) Integer age,
 			@RequestParam(value = "start_date", required = false) String start_date,
 			@RequestParam(value = "end_date", required = false) String end_date,
 			@RequestParam(value = "password", required = false) String password,
-			@RequestParam(value = "passwordCheck", required = false) String passwordCheck
+			@RequestParam(value = "passwordCheck", required = false) String passwordCheck,
 			//↑それぞれに「required = false」を記述し、パラメーターが無くてもnullが代入されるようにしている。(@RequestParamではデフォルトだと値の値が必須で、何も無いとエラーになる為。)
 			//idSearchで入力するのはID(id)のみで、名前(name)等はリクエストに含まれない(どうしてもパラメーター無しになりエラーに繋がる)が、nullが代入されることでエラーを避けられる。
 			//「value = ""」は「required = false」を用いる際は記述しないと警告文が発生した。
+			@RequestParam(value = "back_button", required = false) String back_button
+			//↑入力画面の戻るボタンの処理用。
 			) {
+		//↓入力画面から戻るボタンを使ってID検索画面へ戻る際のIDポスト用処理用文。
+		if("back".equals(back_button)){
+			//この条件文は戻るボタンが押されたかどうかを判断する為の文。戻るボタンを押すと、「back_button=back」という値が送信される。
+			r.addFlashAttribute("id", id);
+			return "redirect:/idSearch";
+			//「redirect」…クライアント(ブラウザ)に別のURLへ移動するよう指示を出す。
+			//redirectではリクエストが切り替わる為、Modelのデータが引き継げない。(m.addAttribute()でセットした値が消えてしまう)
+			//代わりに「RedirectAttributes.」と「addFlashAttribute()」を使うことで、データを一時的に保持できる。(ページのリロード等を行うと消える)
+			//※「RedirectAttributes」は、Spring MVC において、リダイレクト時にデータを渡すためのインターフェース。
+			
+		}
+		
 		 //↓ID検索画面からの処理用if文。ID検索画面はID以外の入力が無い(ID以外がnull)になる為、ID以外がnullの場合は検索を行う様にif文で誘導している。
 		if (name == null || age == null || start_date == null || end_date == null || password == null || passwordCheck == null) {
 			List<UpDate> employeeList = service.selectById(id);
+			
 			if(employeeList.size() == 0) {
 				employeeList = null;
 				r.addFlashAttribute("error", "入力された社員IDと一致するデータが見つかりませんでした。");
+				if (id != null) {
+				  r.addFlashAttribute("id", id);
+				}
 				return "redirect:/idSearch";
 			}
+			
 			UpDate employee = employeeList.get(0);
 			//↑employeeテーブルからデータを取得するList<UpDate>から最初の要素を取得する文。UpDateオブジェクトを取得する。employeeにはUpDateクラスのデータが格納される。
             m.addAttribute("id", employee.getId());
@@ -94,7 +128,7 @@ public class UpdateController {
 			e.printStackTrace();
 		}
 		//↑String型のstart_dateとend_dateをDate型へ変換する処理。parseメソッドで変更する際はtry/catchで例外処理を行う必要があるとのこと。
-		 m.addAttribute("id", id);
+		    m.addAttribute("id", id);
 	        m.addAttribute("name", name);
 	        m.addAttribute("age", age);
 	        m.addAttribute("startDate", startDate);
