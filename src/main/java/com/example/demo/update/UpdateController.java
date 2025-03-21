@@ -52,7 +52,7 @@ public class UpdateController {
 			RedirectAttributes r,
 			@RequestParam(value = "id", required = false) Integer id,//「Integer」でnullを許容。
 			@RequestParam(value = "name", required = false) String name,
-			@RequestParam(value = "age", required = false) Integer age,//「Integer」でnullを許容。
+			@RequestParam(value = "age", required = false) String age,
 			@RequestParam(value = "start_date", required = false) String start_date,
 			@RequestParam(value = "end_date", required = false) String end_date,
 			@RequestParam(value = "password", required = false) String password,
@@ -63,17 +63,29 @@ public class UpdateController {
 			@RequestParam(value = "back_button", required = false) String back_button
 			//↑入力画面の戻るボタンの処理用。
 			) {
+		
 		//↓入力画面から戻るボタンを使ってID検索画面へ戻る際のIDポスト処理用文。
 		if("back".equals(back_button)){
-			//この条件文は戻るボタンが押されたかどうかを判断する為の文。戻るボタンを押すと、「back_button=back」という値が送信される。
 			r.addFlashAttribute("id", id);
 			return "redirect:/idSearch";
-			//「redirect」…クライアント(ブラウザ)に別のURLへ移動するよう指示を出す。
-			//redirectではリクエストが切り替わる為、Modelのデータが引き継げない。(m.addAttribute()でセットした値が消えてしまう)
-			//代わりに「RedirectAttributes.」と「addFlashAttribute()」を使うことで、データを一時的に保持できる。(ページのリロード等を行うと消える)
-			//※「RedirectAttributes」は、Spring MVC において、リダイレクト時にデータを渡すためのインターフェース。	
 		}
+		//この条件文は戻るボタンが押されたかどうかを判断する為の文。戻るボタンを押すと、「back_button=back」という値が送信される。
+		//「redirect」…クライアント(ブラウザ)に別のURLへ移動するよう指示を出す。
+		//redirectではリクエストが切り替わる為、Modelのデータが引き継げない。(m.addAttribute()でセットした値が消えてしまう)
+		//代わりに「RedirectAttributes.」と「addFlashAttribute()」を使うことで、データを一時的に保持できる。(ページのリロード等を行うと消える)
+		//※「RedirectAttributes」は、Spring MVC において、リダイレクト時にデータを渡すためのインターフェース。	
 		
+		//年齢の入力チェック及びバリデーション
+		try {
+			if(age != null) {
+		         Integer.parseInt(age);
+			}
+			 
+			}catch(NumberFormatException e){
+		        m.addAttribute("error", "年齢は数値で入力してください。");
+				return "updateForm";
+			}
+
 		 //↓ID検索画面からの処理用if文。ID検索画面はID以外の入力が無い(ID以外がnull)になる為、ID以外がnullの場合は検索を行う様にif文で誘導している。
 		if (name == null || age == null || start_date == null || end_date == null || password == null || passwordCheck == null) {
 			List<UpDate> employeeList = service.selectById(id);
@@ -98,48 +110,10 @@ public class UpdateController {
             m.addAttribute("passwordCheck", employee.getPassword());
           //↑updateFormの各入力欄に対し、取得したUpDateクラスのデータをセットする文たち。
 			//m.addAttribute("employee",employee);
+            
+            return "updateForm";
 		}
-		
-		//IDの入力チェック
-	    if (id == null || id <= 0) {
-	        m.addAttribute("error", "IDは1以上の数字で入力してください。");
-	        return "updateForm";
-	    }
-	    
-	    // **名前の入力チェック
-	    if (name == null || name.trim().isEmpty() || name.length() > 50 || !name.matches("^[ぁ-んァ-ヶ一-龠々]+$")) {
-	        m.addAttribute("error", "名前は日本語のみ、50文字以内で入力してください。");
-	        return "updateForm";
-	    }
-	    
-	    //年齢の入力チェック
-	    if (age == null || age <= 0) {
-	        m.addAttribute("error", "年齢は1以上の数字で入力してください。");
-	        return "updateForm";
-	    }
-	    
-	    //開始日・終了日の形式チェック
-	    if (start_date == null || !start_date.matches("^\\d{4}-\\d{2}-\\d{2}$")) {
-	        //m.addAttribute("error", "開始日は YYYY-MM-DD 形式で入力してください。");
-	        return "updateForm";
-	    }
-	    if (end_date != null && !end_date.matches("^\\d{4}-\\d{2}-\\d{2}$")) {
-	        m.addAttribute("error", "終了日は YYYY-MM-DD 形式で入力してください。");
-	        return "updateForm";
-	    }
-
-	    //パスワードの入力チェック（英数字8文字以上・確認用と一致）
-	    if (password == null || !password.matches("^[a-zA-Z0-9]+$") || password.length() < 8) {
-	        m.addAttribute("error", "パスワードは8文字以上の英数字で入力してください。");
-	        return "updateForm";
-	    }
-	    if (!password.equals(passwordCheck)) {
-	        m.addAttribute("error", "確認用パスワードが一致しません。");
-	        return "updateForm";
-	    }
-		
 		//↓更新内容確認画面から更新内容入力画面へ戻る際のポスト処理。ID以外の入力がある場合はこちらが処理されるように誘導し、入力内容を保持したままの遷移を可能に。
-		
 		    m.addAttribute("id", id);
 	        m.addAttribute("name", name);
 	        m.addAttribute("age", age);
@@ -148,11 +122,12 @@ public class UpdateController {
 	        m.addAttribute("password", password);
 	        m.addAttribute("passwordCheck", passwordCheck);
 		
-		return "updateForm";
-		
+		return "updateForm";	
 		
 	}
 	
+
+
 	@PostMapping("/updateCheck")
 	public String updateCheak(
 			Model m,
