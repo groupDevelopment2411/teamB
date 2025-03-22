@@ -12,6 +12,6 @@ public interface UpdateMapper {
 	void update(UpDate employee);
 	
 	@Select("SELECT * FROM employee WHERE id = #{id}")
-	List<UpDate> selectById(int id);
+	List<UpDate> selectById(Integer id);
 
 }

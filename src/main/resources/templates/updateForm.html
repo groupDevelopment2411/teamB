@@ -22,28 +22,37 @@
       <div class="rist">
         <div class="item">
             <label for="id">社員ID</label>
-            <input type="number" pattern="^[0-9]+$" id="id" name="id" th:value="${id}" style="background-color: lightgray" readonly>
+            <input type="text" pattern="^[0-9]+$" id="id" name="id" th:value="${id}" style="background-color: lightgray" readonly>
         </div> 
+		
         <div class="item">
             <label for="name">社員名<span style="color: red;">＊</span></label>
             <input type="text" id="name" name="name" th:value="${name}">
         </div>
+		
         <div class="item">
             <label for="age">年齢<span style="color: red;">＊</span></label>
-            <input type="number" pattern="^[0-9]+$" minlength="2" maxlength="3" id="age" name="age" th:value="${age}">
+            <input type="text" pattern="^[0-9]+$" minlength="2" maxlength="3" id="age" name="age" th:attr="value=${age}">
+			
+			  <p th:text="${AgeError}" style="color: red;"></p>
+			
         </div>
+		
         <div class="item"> 
             <label for="password">パスワード<span style="color: red;">＊</span></label>
             <input type="password" pattern="^[a-zA-Z0-9]+$" minlength="8" id="password" name="password" th:value="${password}">
         </div>
+		
         <div class="item">
             <label for="passwordCheck">パスワード確認</label>
             <input type="password" pattern="^[a-zA-Z0-9]+$" minlength="8" id="passwordCheck" name="passwordCheck" th:value="${passwordCheck}">
         </div> 
+		
         <div class="item">
             <label for="start_date">開始日<span style="color: red;">＊</span></label>
             <input type="date" id="start_date" name="start_date" th:value="${start_date}">
         </div> 
+		
         <div class="item">
             <label for="end_date">終了日</label>
             <input type="date" id="end_date" name="end_date" th:value="${end_date}">

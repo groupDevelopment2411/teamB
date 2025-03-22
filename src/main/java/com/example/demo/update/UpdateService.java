@@ -14,7 +14,7 @@ public class UpdateService {
 			mapper.update(employee);
 		}
 		
-	public List<UpDate> selectById(int id) {
+	public List<UpDate> selectById(Integer id) {
 		return mapper.selectById(id);
 	}
 

@@ -18,6 +18,7 @@ public class UpdateController {
 	@Autowired
 	private UpdateService service;
 	
+	//↓社員ID検索画面
 	@RequestMapping("/idSearch")
 	public String idSearch(
 			Model m,
@@ -25,77 +26,52 @@ public class UpdateController {
 			//↑「required = false」を記述し、パラメーターが無くてもnullが代入されるようにしている。(@RequestParamではデフォルトだと値の値が必須で、何も無いとエラーになる為。)
 			//入力画面から戻るボタンを使ってID検索画面へ戻る際のIDポスト処理で使用。
 			) {
-		
 		if(id != null) {
 		List<UpDate> employeeList = service.selectById(id);
 		
 	    if (employeeList.isEmpty()) {
 	    	m.addAttribute("id", id);
 	        m.addAttribute("error", "入力された社員IDと一致するデータが見つかりませんでした。");
-	        
 	      //IDの入力チェック
 		    if (id == null || id <= 0) {
 		        m.addAttribute("error", "IDは1以上の数字で入力してください。");
 		        return "idSearch";
 		    }
 	      }
-	    
 	    }
-		
 		m.addAttribute("id", id);
 		return "idSearch";
 	}
+	//↓updateFormの戻るボタン処理(idSearchへリダイレクトさせる)
+	@PostMapping("idSearch")
+	public String idSearch(
+			RedirectAttributes r,
+			@RequestParam("id") Integer id
+			) {
+		 r.addFlashAttribute("id", id);
+		 return "redirect:/idSearch";
+	}
 	
+	
+	//↓社員IDを検索し社員情報入力画面へ
 	@PostMapping("/updateForm")
 	public String updateForm(
 			Model m, 
 			RedirectAttributes r,
-			@RequestParam(value = "id", required = false) Integer id,//「Integer」でnullを許容。
-			@RequestParam(value = "name", required = false) String name,
-			@RequestParam(value = "age", required = false) String age,
-			@RequestParam(value = "start_date", required = false) String start_date,
-			@RequestParam(value = "end_date", required = false) String end_date,
-			@RequestParam(value = "password", required = false) String password,
-			@RequestParam(value = "passwordCheck", required = false) String passwordCheck,
-			//↑それぞれに「required = false」を記述し、パラメーターが無くてもnullが代入されるようにしている。(@RequestParamではデフォルトだと値の値が必須で、何も無いとエラーになる為。)
+			@RequestParam(value = "id", required = false) Integer id//「Integer」でnullを許容。
+			//「required = false」を記述し、パラメーターが無くてもnullが代入されるようにしている。(@RequestParamではデフォルトだと値の値が必須で、何も無いとエラーになる為。)
 			//idSearchで入力するのはID(id)のみで、名前(name)等はリクエストに含まれない(どうしてもパラメーター無しになりエラーに繋がる)が、nullが代入されることでエラーを避けられる。
 			//「value = ""」は「required = false」を用いる際は記述しないと警告文が発生した。
-			@RequestParam(value = "back_button", required = false) String back_button
-			//↑入力画面の戻るボタンの処理用。
 			) {
-		
-		//↓入力画面から戻るボタンを使ってID検索画面へ戻る際のIDポスト処理用文。
-		if("back".equals(back_button)){
-			r.addFlashAttribute("id", id);
-			return "redirect:/idSearch";
-		}
-		//この条件文は戻るボタンが押されたかどうかを判断する為の文。戻るボタンを押すと、「back_button=back」という値が送信される。
-		//「redirect」…クライアント(ブラウザ)に別のURLへ移動するよう指示を出す。
-		//redirectではリクエストが切り替わる為、Modelのデータが引き継げない。(m.addAttribute()でセットした値が消えてしまう)
-		//代わりに「RedirectAttributes.」と「addFlashAttribute()」を使うことで、データを一時的に保持できる。(ページのリロード等を行うと消える)
-		//※「RedirectAttributes」は、Spring MVC において、リダイレクト時にデータを渡すためのインターフェース。	
-		
-		//年齢の入力チェック及びバリデーション
-		try {
-			if(age != null) {
-		         Integer.parseInt(age);
-			}
-			 
-			}catch(NumberFormatException e){
-		        m.addAttribute("error", "年齢は数値で入力してください。");
-				return "updateForm";
-			}
 
-		 //↓ID検索画面からの処理用if文。ID検索画面はID以外の入力が無い(ID以外がnull)になる為、ID以外がnullの場合は検索を行う様にif文で誘導している。
-		if (name == null || age == null || start_date == null || end_date == null || password == null || passwordCheck == null) {
 			List<UpDate> employeeList = service.selectById(id);
 			
-			if(employeeList.size() == 0) {
-				employeeList = null;
-				r.addFlashAttribute("error", "入力された社員IDと一致するデータが見つかりませんでした。");
-				if (id != null) {
-				  r.addFlashAttribute("id", id);
-				}
+			 if(employeeList.size() == 0) {
+                 employeeList = null;
+                 r.addFlashAttribute("error", "入力された社員IDと一致するデータが見つかりませんでした。");
+                 if (id != null) {
+                   r.addFlashAttribute("id", id);
+                 }
 				return "redirect:/idSearch";
 			}
 			
@@ -108,37 +84,30 @@ public class UpdateController {
             m.addAttribute("end_date", employee.getEnd_date());
             m.addAttribute("password", employee.getPassword());
             m.addAttribute("passwordCheck", employee.getPassword());
-          //↑updateFormの各入力欄に対し、取得したUpDateクラスのデータをセットする文たち。
-			//m.addAttribute("employee",employee);
-            
+          //↑updateFormの各入力欄に対し、取得したUpDateクラスのデータをセットする文たち。 
             return "updateForm";
 		}
-		//↓更新内容確認画面から更新内容入力画面へ戻る際のポスト処理。ID以外の入力がある場合はこちらが処理されるように誘導し、入力内容を保持したままの遷移を可能に。
-		    m.addAttribute("id", id);
-	        m.addAttribute("name", name);
-	        m.addAttribute("age", age);
-	        m.addAttribute("start_date", start_date);
-	        m.addAttribute("end_date", end_date);
-	        m.addAttribute("password", password);
-	        m.addAttribute("passwordCheck", passwordCheck);
-		
-		return "updateForm";	
-		
-	}
 	
-
-
+	//更新内容確認画面
 	@PostMapping("/updateCheck")
 	public String updateCheak(
 			Model m,
+			RedirectAttributes r,
 			@RequestParam("id") int id,
 			@RequestParam("name") String name,
-			@RequestParam("age") int age,
+			@RequestParam("age") String age,
 			@RequestParam("start_date") String start_date,
 			@RequestParam("end_date") String end_date,
 			@RequestParam("password") String password,
 			@RequestParam("passwordCheck") String passwordCheck
 			) {
+		
+		 try {
+	            Integer.parseInt(age);
+	        } catch (NumberFormatException e) {
+	            m.addAttribute("AgeError", "年齢は数値で入力してください。");
+	            return "updateForm";
+	        }
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date startDate = (null);
@@ -163,6 +132,7 @@ public class UpdateController {
 		return "updateCheck";
 	}
 	
+	//更新処理及び更新完了画面
 	@PostMapping("/updateResult")
 	public String updateResult(
 			Model m,
