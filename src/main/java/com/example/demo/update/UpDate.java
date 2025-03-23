@@ -6,13 +6,13 @@ public class UpDate {
 	
 	private int id;
 	private String name;
-	private int age;
+	private String age;
 	private Date start_date;
 	private Date end_date;
 	private String password;
 	
 	public UpDate() {};
-	public UpDate(int id, String name, int age, Date start_date, Date end_date, String password) {
+	public UpDate(int id, String name, String age, Date start_date, Date end_date, String password) {
 		
 		this.id = id;
 		this.name = name;
@@ -39,11 +39,11 @@ public class UpDate {
 		this.name = name;
 	}
 	
-	public int getAge() {
+	public String getAge() {
 		return this.age;
 	}
 	
-	public void setAge(int age) {
+	public void setAge(String age) {
 		this.age = age;
 	}
 	
