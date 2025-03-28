@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class UpDate {
 	
-	private int id;
+	private String id;
 	private String name;
 	private String age;
 	private Date start_date;
@@ -12,7 +12,7 @@ public class UpDate {
 	private String password;
 	
 	public UpDate() {};
-	public UpDate(int id, String name, String age, Date start_date, Date end_date, String password) {
+	public UpDate(String id, String name, String age, Date start_date, Date end_date, String password) {
 		
 		this.id = id;
 		this.name = name;
@@ -23,11 +23,11 @@ public class UpDate {
 		
 	}
 	
-	public int getId() {
+	public String getId() {
 		return this.id;
 	}
 	
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	

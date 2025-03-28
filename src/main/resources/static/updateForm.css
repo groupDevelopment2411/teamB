@@ -21,21 +21,41 @@
 
 .item{
 	display: flex;
-    align-items: center;
+    align-items: flex-start;
 	justify-content: flex-start;
 	padding: 15px;
+}
+
+.formTitle{
+	display: flex;
+		flex-direction: column;
 }
 		
 label {
 	width: 150px;
 	text-align: left;
 	padding-right: 15px;
+	padding-top: 4px;
+}
+
+.rule{
+	font-size: 10px;
 }
 
 input {
 	width: 150px;
 	height: 30px;
 	border: 1px solid;
+}
+
+.errorMsg {
+	font-size: 10px;
+	margin-top: 3px;
+}
+
+.inputForm {
+	display: flex;
+	flex-direction: column;
 }
 
 .button{

@@ -18,47 +18,81 @@
 	</div>
 	
    <div class="wrapper">
+	
     <form action="/updateCheck" method="post" id="updateForm">
       <div class="rist">
+		<p style="color: red;">＊は入力必須項目です</p>
         <div class="item">
+			<div class="formTitle">
             <label for="id">社員ID</label>
+			</div>
+			<div class="inputForm">
             <input type="text" pattern="^[0-9]+$" id="id" name="id" th:value="${id}" style="background-color: lightgray" readonly>
+			<p class="errorMsg" th:text="${IdError}" style="color: red;"></p>
+			</div>
         </div> 
 		
         <div class="item">
+			<div class="formTitle">
             <label for="name">社員名<span style="color: red;">＊</span></label>
+			<p class="rule">※日本語のみ入力可能</p>
+			</div>
+			<div class="inputForm">
             <input type="text" id="name" name="name" th:value="${name}">
-			<p th:text="${NameError}" style="color: red;"></p>
+			<p class="errorMsg" th:text="${NameError}" style="color: red;"></p>
+			</div>
         </div>
 		
         <div class="item">
+			<div class="formTitle">
             <label for="age">年齢<span style="color: red;">＊</span></label>
+			<p class="rule">※数値のみ入力可能</p>
+			</div>
+			<div class="inputForm">
             <input type="text" pattern="^[0-9]+$" minlength="2" maxlength="3" id="age" name="age" th:attr="value=${age}">
-			  <p th:text="${AgeError}" style="color: red;"></p>	
+			  <p class="errorMsg" th:text="${AgeError}" style="color: red;"></p>
+			</div>  	
         </div>
 		
         <div class="item"> 
+			<div class="formTitle">
             <label for="password">パスワード<span style="color: red;">＊</span></label>
+			<p class="rule">※半角英数字のみ使用可能</p>
+			</div>
+			<div class="inputForm">
             <input type="password" pattern="^[a-zA-Z0-9]+$" minlength="8" id="password" name="password" th:value="${password}">
-			<p th:text="${PwError}" style="color: red;"></p>
+			<p class="errorMsg" th:text="${PwError}" style="color: red;"></p>
+			</div>
         </div>
 		
         <div class="item">
+			<div class="formTitle">
             <label for="passwordCheck">パスワード確認</label>
+			</div>
+			<div class="inputForm">
             <input type="password" pattern="^[a-zA-Z0-9]+$" minlength="8" id="passwordCheck" name="passwordCheck" th:value="${passwordCheck}">
-			<p th:text="${PwcError}" style="color: red;"></p>
+			<p class="errorMsg" th:text="${PwcError}" style="color: red;"></p>
+			</div>
         </div> 
 		
         <div class="item">
+			<div class="formTitle">
             <label for="start_date">開始日<span style="color: red;">＊</span></label>
+			</div>
+			<div class="inputForm">
             <input type="date" id="start_date" name="start_date" th:value="${start_date}">
-			<p th:text="${SdError}" style="color: red;"></p>
+			<p class="errorMsg" th:text="${SdError}" style="color: red;"></p>
+			</div>
         </div> 
 		
         <div class="item">
+			<div class="formTitle">
             <label for="end_date">終了日</label>
+			</div>
+			<div class="inputForm">
             <input type="date" id="end_date" name="end_date" th:value="${end_date}">
-			<p th:text="${EdError}" style="color: red;"></p>
+			<p class="errorMsg" th:text="${EdError}" style="color: red;"></p>
+			</div>
         </div>  
       </div>
 	</form>   

@@ -22,46 +22,61 @@
 	  <form id="updateCheck" action="/updateResult" method="post">
 		
 		<div class="rist">
-	 
+			<p style="color: red;">＊は入力必須項目です</p>
 		  <div class="item">
 		     <label for="id">社員ID</label>
+			 <div class="inputForm">
 		     <input type="number" id="id" name="id" th:value="${id}" style="background-color: lightgray" readonly>
+			 <p class="errorMsg" th:text="${IdError}" style="color: red;"></p>
+			 </div>
 		  </div>
 		
 		  <div class="item">   
 		     <label for="name">社員名<span style="color: red;">＊</span></label>
+			 <div class="inputForm">
 		     <input type="text" id="name" name="name" th:value="${name}" readonly>
-			 <p th:text="${NameError}" style="color: red;"></p>
+			 <p class="errorMsg" th:text="${NameError}" style="color: red;"></p>
+			 </div>
 		  </div>
 		
 		  <div class="item">
 		     <label for="age">年齢<span style="color: red;">＊</span></label>
+			 <div class="inputForm">
 		     <input type="text" id="age" name="age" th:value="${age}" readonly>
-			 <p th:text="${AgeError}" style="color: red;"></p>	
+			 <p class="errorMsg" th:text="${AgeError}" style="color: red;"></p>
+			 </div>	
 		  </div>
 		
 		  <div class="item">
 		     <label for="password">パスワード<span style="color: red;">＊</span></label>
+			 <div class="inputForm">
 		     <input type="password" id="password" name="password" th:value="${password}" readonly>
-			 <p th:text="${PwError}" style="color: red;"></p>
+			 <p class="errorMsg" th:text="${PwError}" style="color: red;"></p>
+			 </div>
 		  </div>
 		
 		  <div class="item">
 		     <label for="passwordCheck">パスワード確認</label>
+			 <div class="inputForm">
 		     <input type="password" id="passwordCheck" name="passwordCheck" th:value="${passwordCheck}" readonly>
-			 <p th:text="${PwcError}" style="color: red;"></p>
+			 <p class="errorMsg" th:text="${PwcError}" style="color: red;"></p>
+			 </div>
 		  </div>
 		
 		  <div class="item">
 		     <label for="start_date">開始日<span style="color: red;">＊</span></label>
+			 <div class="inputForm">
 		     <input type="date" id="start_date" name="start_date" th:value="${#dates.format(startDate, 'yyyy-MM-dd')}" readonly>
-			 <p th:text="${SdError}" style="color: red;"></p>
+			 <p class="errorMsg" th:text="${SdError}" style="color: red;"></p>
+			 </div>
 		  </div>
 		
 		  <div class="item">
 		    <label for="end_date">終了日</label>
+			<div class="inputForm">
 		     <input type="date" id="end_date" name="end_date" th:value="${#dates.format(endDate, 'yyyy-MM-dd')}" readonly>
-			 <p th:text="${EdError}" style="color: red;"></p>
+			 <p class="errorMsg" th:text="${EdError}" style="color: red;"></p>
+			 </div>
 		  </div> 
 		
 		  <p class="msg" th:text="${msg}"></p>

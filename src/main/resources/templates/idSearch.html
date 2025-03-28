@@ -24,8 +24,12 @@
 				<div class="item">
 					<label for="id">社員ID</label>
 					<input type="text" pattern="^[0-9]+$" id="id" name="id" th:value="${id}">
+					<p class="rule">※数値のみ入力可能</p>
 				</div>
-				
+				<div th:if="${IdError}">
+					<p th:text="${IdError}" style="color: red;"></p>
+				</div>
+					
 				<div th:if="${error}">
 					<p th:text="${error}" style="color: red;"></p>
 				</div>

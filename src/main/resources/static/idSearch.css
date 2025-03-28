@@ -22,6 +22,11 @@
 
 }
 
+.rule{
+	font-size: small;
+	
+}
+
 .item{
     align-items: center;
 	padding: 15px
