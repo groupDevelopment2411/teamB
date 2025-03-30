@@ -19,7 +19,7 @@
 	
    <div class="wrapper">
 	
-    <form action="/updateCheck" method="post" id="updateForm">
+    <form action="/updateCheck" method="post" id="updateForm" th:attr="DataErrorMessage=${errorMessage}">
       <div class="rist">
 		<p style="color: red;">＊は入力必須項目です</p>
         <div class="item">
@@ -28,7 +28,9 @@
 			</div>
 			<div class="inputForm">
             <input type="text" pattern="^[0-9]+$" id="id" name="id" th:value="${id}" style="background-color: lightgray" readonly>
-			<p class="errorMsg" th:text="${IdError}" style="color: red;"></p>
+			<input type="hidden" id="errorMessage" th:value="${IdError} ?: ${error}">
+			<p class="errorMsg" th:if="${IdEmptyError}" th:text="${IdEmptyError}" style="color: red;"></p>
+			<p class="errorMsg" th:if="${IdError}" th:text="${IdError}" style="color: red;"></p>
 			</div>
         </div> 
 		
@@ -39,7 +41,8 @@
 			</div>
 			<div class="inputForm">
             <input type="text" id="name" name="name" th:value="${name}">
-			<p class="errorMsg" th:text="${NameError}" style="color: red;"></p>
+			<p class="errorMsg" th:if="${NameEmptyError}" th:text="${NameEmptyError}" style="color: red;"></p>
+			<p class="errorMsg" th:if="${NameError}" th:text="${NameError}" style="color: red;"></p>
 			</div>
         </div>
 		
@@ -50,7 +53,8 @@
 			</div>
 			<div class="inputForm">
             <input type="text" pattern="^[0-9]+$" minlength="2" maxlength="3" id="age" name="age" th:attr="value=${age}">
-			  <p class="errorMsg" th:text="${AgeError}" style="color: red;"></p>
+			  <p class="errorMsg" th:if="${AgeEmptyError}" th:text="${AgeEmptyError}" style="color: red;"></p>
+			  <p class="errorMsg" th:if="${AgeError}" th:text="${AgeError}" style="color: red;"></p>
 			</div>  	
         </div>
 		
@@ -61,7 +65,8 @@
 			</div>
 			<div class="inputForm">
             <input type="password" pattern="^[a-zA-Z0-9]+$" minlength="8" id="password" name="password" th:value="${password}">
-			<p class="errorMsg" th:text="${PwError}" style="color: red;"></p>
+			<p class="errorMsg" th:if="${PwEmptyError}" th:text="${PwEmptyError}" style="color: red;"></p>
+			<p class="errorMsg" th:if="${PwError}" th:text="${PwError}" style="color: red;"></p>
 			</div>
         </div>
 		
@@ -71,7 +76,7 @@
 			</div>
 			<div class="inputForm">
             <input type="password" pattern="^[a-zA-Z0-9]+$" minlength="8" id="passwordCheck" name="passwordCheck" th:value="${passwordCheck}">
-			<p class="errorMsg" th:text="${PwcError}" style="color: red;"></p>
+			<p class="errorMsg"th:if="${PwcError}" th:text="${PwcError}" style="color: red;"></p>
 			</div>
         </div> 
 		
@@ -81,7 +86,8 @@
 			</div>
 			<div class="inputForm">
             <input type="date" id="start_date" name="start_date" th:value="${start_date}">
-			<p class="errorMsg" th:text="${SdError}" style="color: red;"></p>
+			<p class="errorMsg" th:if="${SdEmptyError}" th:text="${SdEmptyError}" style="color: red;"></p>
+			<p class="errorMsg" th:if="${SdError}" th:text="${SdError}" style="color: red;"></p>
 			</div>
         </div> 
 		
@@ -91,7 +97,8 @@
 			</div>
 			<div class="inputForm">
             <input type="date" id="end_date" name="end_date" th:value="${end_date}">
-			<p class="errorMsg" th:text="${EdError}" style="color: red;"></p>
+			<p class="errorMsg" th:if="${EdEmptyError}" th:text="${EdEmptyError}" style="color: red;"></p>
+			<p class="errorMsg" th:if="${EdError}" th:text="${EdError}" style="color: red;"></p>
 			</div>
         </div>  
       </div>

@@ -19,18 +19,25 @@
 	</div>
 	
 	<div class="wrapper">
-		<form action="/updateForm" method="post" id="idSearch">
+		<form action="/updateForm" method="post" id="idSearch" th:attr="DataErrorMessage=${errorMessage}">
 			<div class="rist">
 				<div class="item">
 					<label for="id">社員ID</label>
 					<input type="text" pattern="^[0-9]+$" id="id" name="id" th:value="${id}">
 					<p class="rule">※数値のみ入力可能</p>
 				</div>
-				<div th:if="${IdError}">
+				
+				<input type="hidden" id="errorMessage" th:value="${IdError} ?: ${error}">
+				
+				<div th:if="${IdEmptyError}" class="idSearch">
+					<p th:text="${IdEmptyError}" style="color: red;"></p>
+				</div>
+				
+				<div th:if="${IdError}" class="idSearch">
 					<p th:text="${IdError}" style="color: red;"></p>
 				</div>
 					
-				<div th:if="${error}">
+				<div th:if="${error}" class="idSearch">
 					<p th:text="${error}" style="color: red;"></p>
 				</div>
 				

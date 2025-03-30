@@ -2,6 +2,7 @@ package com.example.demo.update;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -64,30 +65,49 @@ public class UpdateController {
 	@PostMapping("/updateForm")
 	public String updateForm(
 			Model m, 
-			RedirectAttributes r,
+		
 			@RequestParam(value = "id", required = false) String id//「Integer」でnullを許容。
 			//「required = false」を記述し、パラメーターが無くてもnullが代入されるようにしている。(@RequestParamではデフォルトだと値の値が必須で、何も無いとエラーになる為。)
 			//idSearchで入力するのはID(id)のみで、名前(name)等はリクエストに含まれない(どうしてもパラメーター無しになりエラーに繋がる)が、nullが代入されることでエラーを避けられる。
 			//「value = ""」は「required = false」を用いる際は記述しないと警告文が発生した。
 
 			) {
+		List<String> errors = new ArrayList<>();
 		//社員idの入力チェック・バリデーション
+		 if (id == null || id.trim().isEmpty()) {
+			    m.addAttribute("IdEmptyError", "社員IDを入力してください。");
+		        errors.add("社員IDを入力してください。");
+		    }else {
 		 try {
 			 Integer.parseInt(id); 
 	        } catch (NumberFormatException e) {
 	        	m.addAttribute("id", id);
-	            r.addFlashAttribute("IdError", "社員IDは数値で入力してください。");
-	            return "redirect:/idSearch";
-	        }
+	        	m.addAttribute("IdError", "社員IDは数値で入力してください。");
+	        	errors.add("社員IDは数値で入力してください。");
+	            //return "idSearch";
+	          }
+		    }
+		 
+		//エラーメッセージをjsへ渡す為の記述
+		    if (!errors.isEmpty()) {
+		        m.addAttribute("errorMessage", String.join("\n", errors)); // エラーを改行で結合
+		        return "idSearch";
+		    }
 		
 		//入力された社員IDに該当するデータが存在しなかった際のメッセージ表示 
 		List<UpDate> employeeList = service.selectById(id);	
 		    if(employeeList.size() == 0) {
                  employeeList = null;
                  m.addAttribute("id", id);
-                 r.addFlashAttribute("error", "社員ID【" + id + "】に該当する社員のデータが見つかりませんでした。");
-				return "redirect:/idSearch";
+                 m.addAttribute("error", "社員ID【" + id + "】に該当する社員のデータが見つかりませんでした。");
+                 errors.add("社員ID【" + id + "】に該当する社員のデータが見つかりませんでした。");
 			}
+		    
+		  //エラーメッセージをjsへ渡す為の記述
+		    if (!errors.isEmpty()) {
+		        m.addAttribute("errorMessage", String.join("\n", errors)); // エラーを改行で結合
+		        return "idSearch";
+		    }
 		    
 		  //employeeテーブルからデータを取得するList<UpDate>から最初の要素を取得する文。UpDateオブジェクトを取得する。employeeにはUpDateクラスのデータが格納される。
 			UpDate employee = employeeList.get(0);
@@ -137,7 +157,13 @@ public class UpdateController {
 			e.printStackTrace();
 		}
 
+	
+		List<String> errors = new ArrayList<>();
 		//社員idの入力チェック・バリデーション
+		 if (id == null || id.trim().isEmpty()) {
+			    m.addAttribute("IdEmptyError", "社員IDを入力してください。");
+		        errors.add("社員IDを入力してください。");
+		    }else {
 		try {
 			 Integer.parseInt(id); 
 	        } catch (NumberFormatException e) {
@@ -149,11 +175,30 @@ public class UpdateController {
 		        m.addAttribute("password", password);
 		        m.addAttribute("passwordCheck", passwordCheck);
 	            m.addAttribute("IdError", "数値で入力してください。");
-	            return "updateForm";
+	            errors.add("社員IDは数値で入力してください。");
+	            //return "updateForm";
 	        }
+	      }
+		 
+		//エラーメッセージをjsへ渡す為の記述
+		    if (!errors.isEmpty()) {
+		        m.addAttribute("errorMessage", String.join("\n", errors));
+		        return "updateForm";
+		    }
 		
 		//名前の入力チェック・バリデーション
+	    if (name == null || name.trim().isEmpty()) {
+	    	m.addAttribute("NameEmptyError", "名前が入力されていません。");
+	    	errors.add("名前が入力されていません。");		
+	    }
+	    //エラーメッセージをjsへ渡す為の記述
+	    if (!errors.isEmpty()) {
+	        m.addAttribute("errorMessage", String.join("\n", errors)); 
+	        return "updateForm";
+	    }
+	    
 	    if (name == null || name.trim().isEmpty() || name.length() > 50 || !name.matches("^[ぁ-んァ-ヶ一-龠々]+$")) {
+	    	m.addAttribute("id", id);
 	    	m.addAttribute("id", id);
 	        m.addAttribute("name", name);
 	        m.addAttribute("age", age);
@@ -162,9 +207,20 @@ public class UpdateController {
 	        m.addAttribute("password", password);
 	        m.addAttribute("passwordCheck", passwordCheck);
 	        m.addAttribute("NameError", "日本語で入力してください。");
+	        errors.add("日本語で入力してください。");
+	        //return "updateForm";
+	    } 
+	  //エラーメッセージをjsへ渡す為の記述
+	    if (!errors.isEmpty()) {
+	        m.addAttribute("errorMessage", String.join("\n", errors)); 
 	        return "updateForm";
 	    }
+	    
 		//年齢の入力チェック・バリデーション
+	    if (age == null || age.trim().isEmpty()) {
+		    m.addAttribute("AgeEmptyError", "年齢を入力してください。");
+	        errors.add("年齢を入力してください。");
+	    }else {
 		 try {
 	            Integer.parseInt(age);
 	        } catch (NumberFormatException e) {
@@ -175,11 +231,27 @@ public class UpdateController {
 		        m.addAttribute("endDate", endDate);
 		        m.addAttribute("password", password);
 		        m.addAttribute("passwordCheck", passwordCheck);
-	            m.addAttribute("AgeError", "数値で入力してください。");
-	            return "updateForm";
-	        }
+	            m.addAttribute("AgeError", "年齢は数値で入力してください。");
+	            errors.add("数値で入力してください。");
+	            //return "updateForm";
+	           }
+	       } 
+	  //エラーメッセージをjsへ渡す為の記述
+	    if (!errors.isEmpty()) {
+	        m.addAttribute("errorMessage", String.join("\n", errors)); 
+	        return "updateForm";
+	    }
 		 
 		//パスワードの入力チェック（英数字8文字以上・確認用と一致）
+	    if (password == null || password.trim().isEmpty()) {
+	    	m.addAttribute("PwEmptyError", "パスワードが入力されていません。");
+	    	errors.add("パスワードが入力されていません。");		
+	    }
+	    //エラーメッセージをjsへ渡す為の記述
+	    if (!errors.isEmpty()) {
+	        m.addAttribute("errorMessage", String.join("\n", errors)); 
+	        return "updateForm";
+	    }
 	    if (password == null || !password.matches("^[a-zA-Z0-9]+$") || password.length() < 8) {
 	    	m.addAttribute("id", id);
 	        m.addAttribute("name", name);
@@ -188,9 +260,16 @@ public class UpdateController {
 	        m.addAttribute("endDate", endDate);
 	        m.addAttribute("password", password);
 	        m.addAttribute("passwordCheck", passwordCheck);
-		     m.addAttribute("PwError", "8文字以上の英数字で入力してください。");
-		     return "updateForm";
+		    m.addAttribute("PwError", "8文字以上の英数字で入力してください。");
+		    errors.add("8文字以上の英数字で入力してください。");
+		     //return "updateForm";
 		    }
+	  //エラーメッセージをjsへ渡す為の記述
+	    if (!errors.isEmpty()) {
+	        m.addAttribute("errorMessage", String.join("\n", errors)); 
+	        return "updateForm";
+	    }
+	    
 		if (!password.equals(passwordCheck)) {
 			m.addAttribute("id", id);
 	        m.addAttribute("name", name);
@@ -199,11 +278,27 @@ public class UpdateController {
 	        m.addAttribute("endDate", endDate);
 	        m.addAttribute("password", password);
 	        m.addAttribute("passwordCheck", passwordCheck);
-		     m.addAttribute("PwcError", "確認用パスワードが一致しません。");
-		     return "updateForm";
+		    m.addAttribute("PwcError", "確認用パスワードが一致しません。");
+		    errors.add("確認用パスワードが一致しません。");
+		    // return "updateForm";
 		    }
+
+	    if (!errors.isEmpty()) {
+	        m.addAttribute("errorMessage", String.join("\n", errors)); 
+	        return "updateForm";
+	    }
 		
 		//開始日・終了日の形式チェック
+	    if (start_date == null || start_date.trim().isEmpty()) {
+	    	m.addAttribute("SdEmptyError", "開始日が入力されていません。");
+	    	errors.add("開始日が入力されていません。");		
+	    }
+	    
+	    if (!errors.isEmpty()) {
+	        m.addAttribute("errorMessage", String.join("\n", errors)); 
+	        return "updateForm";
+	    }
+	    
 	    if (start_date == null || !start_date.matches("^\\d{4}-\\d{2}-\\d{2}$")) {
 	    	m.addAttribute("id", id);
 	        m.addAttribute("name", name);
@@ -213,20 +308,27 @@ public class UpdateController {
 	        m.addAttribute("password", password);
 	        m.addAttribute("passwordCheck", passwordCheck);
 	        m.addAttribute("SdError", "開始日は YYYY-MM-DD 形式で入力してください。");
+	        errors.add("開始日は YYYY-MM-DD 形式で入力してください。");
+	        //return "updateForm";
+	    }
+
+	    if (!errors.isEmpty()) {
+	        m.addAttribute("errorMessage", String.join("\n", errors)); 
 	        return "updateForm";
 	    }
-	    if (end_date != null && !end_date.matches("^\\d{4}-\\d{2}-\\d{2}$")) {
-	    	m.addAttribute("id", id);
-	        m.addAttribute("name", name);
-	        m.addAttribute("age", age);
-	        m.addAttribute("startDate", startDate);
-	        m.addAttribute("endDate", endDate);
-	        m.addAttribute("password", password);
-	        m.addAttribute("passwordCheck", passwordCheck);
-	        m.addAttribute("EdError", "終了日は YYYY-MM-DD 形式で入力してください。");
-	        return "updateForm";
-	    }
-		
+	    
+	    //if (end_date != null && !end_date.matches("^\\d{4}-\\d{2}-\\d{2}$")) {
+	    	//m.addAttribute("id", id);
+	        //m.addAttribute("name", name);
+	        //m.addAttribute("age", age);
+	        //m.addAttribute("startDate", startDate);
+	        //m.addAttribute("endDate", endDate);
+	        //m.addAttribute("password", password);
+	        //m.addAttribute("passwordCheck", passwordCheck);
+	        //m.addAttribute("EdError", "終了日は YYYY-MM-DD 形式で入力してください。");
+	        //return "updateForm";
+	    //}
+
 
 		    m.addAttribute("id", id);
 	        m.addAttribute("name", name);
@@ -273,22 +375,57 @@ public class UpdateController {
 			e.printStackTrace();
 		}
 		
+		List<String> errors = new ArrayList<>();
 		//社員idの入力チェック・バリデーション
+		 if (id == null || id.trim().isEmpty()) {
+			    m.addAttribute("name", name);
+		        m.addAttribute("age", age);
+		        m.addAttribute("startDate", startDate);
+		        m.addAttribute("endDate", endDate);
+		        m.addAttribute("password", password);
+		        m.addAttribute("passwordCheck", passwordCheck);
+			    m.addAttribute("IdEmptyError", "社員IDを入力してください。");
+		        errors.add("社員IDを入力してください。");
+		    }else {
 		try {
 			 Integer.parseInt(id); 
-		} catch (NumberFormatException e) {        	
-			m.addAttribute("id", id);
-			m.addAttribute("name", name);
-			m.addAttribute("age", age);
-			m.addAttribute("startDate", startDate);
-			m.addAttribute("endDate", endDate);
-			m.addAttribute("password", password);
-			m.addAttribute("passwordCheck", passwordCheck);
-			m.addAttribute("IdError", "数値で入力してください。");
-			return "updateForm";
-		}
+	        } catch (NumberFormatException e) {
+	        	m.addAttribute("id", id);
+		        m.addAttribute("name", name);
+		        m.addAttribute("age", age);
+		        m.addAttribute("startDate", startDate);
+		        m.addAttribute("endDate", endDate);
+		        m.addAttribute("password", password);
+		        m.addAttribute("passwordCheck", passwordCheck);
+	            m.addAttribute("IdError", "数値で入力してください。");
+	            errors.add("社員IDは数値で入力してください。");
+	            //return "updateCheck";
+	        }
+	      }
+		 
+		//エラーメッセージをjsへ渡す為の記述
+		    if (!errors.isEmpty()) {
+		        m.addAttribute("errorMessage", String.join("\n", errors));
+		        return "updateCheck";
+		    }
 		
 		//名前の入力チェック・バリデーション
+	    if (name == null || name.trim().isEmpty()) {
+	    	m.addAttribute("id", id);
+	        m.addAttribute("age", age);
+	        m.addAttribute("startDate", startDate);
+	        m.addAttribute("endDate", endDate);
+	        m.addAttribute("password", password);
+	        m.addAttribute("passwordCheck", passwordCheck);
+	    	m.addAttribute("NameEmptyError", "名前が入力されていません。");
+	    	errors.add("名前が入力されていません。");		
+	    }
+	    //エラーメッセージをjsへ渡す為の記述
+	    if (!errors.isEmpty()) {
+	        m.addAttribute("errorMessage", String.join("\n", errors)); 
+	        return "updateCheck";
+	    }
+	    
 	    if (name == null || name.trim().isEmpty() || name.length() > 50 || !name.matches("^[ぁ-んァ-ヶ一-龠々]+$")) {
 	    	m.addAttribute("id", id);
 	        m.addAttribute("name", name);
@@ -298,9 +435,26 @@ public class UpdateController {
 	        m.addAttribute("password", password);
 	        m.addAttribute("passwordCheck", passwordCheck);
 	        m.addAttribute("NameError", "日本語で入力してください。");
-	        return "updateForm";
+	        errors.add("日本語で入力してください。");
+	        //return "updateCheck";
+	    } 
+	  //エラーメッセージをjsへ渡す為の記述
+	    if (!errors.isEmpty()) {
+	        m.addAttribute("errorMessage", String.join("\n", errors)); 
+	        return "updateCheck";
 	    }
+	    
 		//年齢の入力チェック・バリデーション
+	    if (age == null || age.trim().isEmpty()) {
+	    	m.addAttribute("id", id);
+	        m.addAttribute("name", name);
+	        m.addAttribute("startDate", startDate);
+	        m.addAttribute("endDate", endDate);
+	        m.addAttribute("password", password);
+	        m.addAttribute("passwordCheck", passwordCheck);
+		    m.addAttribute("AgeEmptyError", "年齢を入力してください。");
+	        errors.add("年齢を入力してください。");
+	    }else {
 		 try {
 	            Integer.parseInt(age);
 	        } catch (NumberFormatException e) {
@@ -311,11 +465,33 @@ public class UpdateController {
 		        m.addAttribute("endDate", endDate);
 		        m.addAttribute("password", password);
 		        m.addAttribute("passwordCheck", passwordCheck);
-	            m.addAttribute("AgeError", "数値で入力してください。");
-	            return "updateForm";
-	        }
+	            m.addAttribute("AgeError", "年齢は数値で入力してください。");
+	            errors.add("数値で入力してください。");
+	            //return "updateCheck";
+	           }
+	       } 
+	  //エラーメッセージをjsへ渡す為の記述
+	    if (!errors.isEmpty()) {
+	        m.addAttribute("errorMessage", String.join("\n", errors)); 
+	        return "updateCheck";
+	    }
 		 
 		//パスワードの入力チェック（英数字8文字以上・確認用と一致）
+	    if (password == null || password.trim().isEmpty()) {
+	    	m.addAttribute("id", id);
+	        m.addAttribute("name", name);
+	        m.addAttribute("age", age);
+	        m.addAttribute("startDate", startDate);
+	        m.addAttribute("endDate", endDate);
+	        m.addAttribute("passwordCheck", passwordCheck);
+	    	m.addAttribute("PwEmptyError", "パスワードが入力されていません。");
+	    	errors.add("パスワードが入力されていません。");		
+	    }
+	    //エラーメッセージをjsへ渡す為の記述
+	    if (!errors.isEmpty()) {
+	        m.addAttribute("errorMessage", String.join("\n", errors)); 
+	        return "updateCheck";
+	    }
 	    if (password == null || !password.matches("^[a-zA-Z0-9]+$") || password.length() < 8) {
 	    	m.addAttribute("id", id);
 	        m.addAttribute("name", name);
@@ -324,9 +500,16 @@ public class UpdateController {
 	        m.addAttribute("endDate", endDate);
 	        m.addAttribute("password", password);
 	        m.addAttribute("passwordCheck", passwordCheck);
-		     m.addAttribute("PwError", "8文字以上の英数字で入力してください。");
-		     return "updateForm";
+		    m.addAttribute("PwError", "8文字以上の英数字で入力してください。");
+		    errors.add("8文字以上の英数字で入力してください。");
+		     //return "updateCheck";
 		    }
+	  //エラーメッセージをjsへ渡す為の記述
+	    if (!errors.isEmpty()) {
+	        m.addAttribute("errorMessage", String.join("\n", errors)); 
+	        return "updateCheck";
+	    }
+	    
 		if (!password.equals(passwordCheck)) {
 			m.addAttribute("id", id);
 	        m.addAttribute("name", name);
@@ -335,11 +518,33 @@ public class UpdateController {
 	        m.addAttribute("endDate", endDate);
 	        m.addAttribute("password", password);
 	        m.addAttribute("passwordCheck", passwordCheck);
-		     m.addAttribute("PwcError", "確認用パスワードが一致しません。");
-		     return "updateForm";
+		    m.addAttribute("PwcError", "確認用パスワードが一致しません。");
+		    errors.add("確認用パスワードが一致しません。");
+		    // return "updateCheck";
 		    }
+
+	    if (!errors.isEmpty()) {
+	        m.addAttribute("errorMessage", String.join("\n", errors)); 
+	        return "updateCheck";
+	    }
 		
 		//開始日・終了日の形式チェック
+	    if (start_date == null || start_date.trim().isEmpty()) {
+	    	m.addAttribute("id", id);
+	        m.addAttribute("name", name);
+	        m.addAttribute("age", age);
+	        m.addAttribute("endDate", endDate);
+	        m.addAttribute("password", password);
+	        m.addAttribute("passwordCheck", passwordCheck);
+	    	m.addAttribute("SdEmptyError", "開始日が入力されていません。");
+	    	errors.add("開始日が入力されていません。");		
+	    }
+	    
+	    if (!errors.isEmpty()) {
+	        m.addAttribute("errorMessage", String.join("\n", errors)); 
+	        return "updateCheck";
+	    }
+	    
 	    if (start_date == null || !start_date.matches("^\\d{4}-\\d{2}-\\d{2}$")) {
 	    	m.addAttribute("id", id);
 	        m.addAttribute("name", name);
@@ -349,19 +554,35 @@ public class UpdateController {
 	        m.addAttribute("password", password);
 	        m.addAttribute("passwordCheck", passwordCheck);
 	        m.addAttribute("SdError", "開始日は YYYY-MM-DD 形式で入力してください。");
-	        return "updateForm";
+	        errors.add("開始日は YYYY-MM-DD 形式で入力してください。");
+	        //return "updateCheck";
 	    }
-	    if (end_date != null && !end_date.matches("^\\d{4}-\\d{2}-\\d{2}$")) {
-	    	m.addAttribute("id", id);
+
+	    if (!errors.isEmpty()) {
+	        m.addAttribute("errorMessage", String.join("\n", errors)); 
+	        return "updateCheck";
+	    }
+	    
+	    //if (end_date != null && !end_date.matches("^\\d{4}-\\d{2}-\\d{2}$")) {
+	    	//m.addAttribute("id", id);
+	        //m.addAttribute("name", name);
+	        //m.addAttribute("age", age);
+	        //m.addAttribute("startDate", startDate);
+	        //m.addAttribute("endDate", endDate);
+	        //m.addAttribute("password", password);
+	        //m.addAttribute("passwordCheck", passwordCheck);
+	        //m.addAttribute("EdError", "終了日は YYYY-MM-DD 形式で入力してください。");
+	        //return "updateCheck";
+	    //}
+
+
+		    m.addAttribute("id", id);
 	        m.addAttribute("name", name);
 	        m.addAttribute("age", age);
 	        m.addAttribute("startDate", startDate);
 	        m.addAttribute("endDate", endDate);
 	        m.addAttribute("password", password);
 	        m.addAttribute("passwordCheck", passwordCheck);
-	        m.addAttribute("EdError", "終了日は YYYY-MM-DD 形式で入力してください。");
-	        return "updateForm";
-	    }
 
 		UpDate employee = new UpDate(id, name, age, startDate, endDate, password);
 		service.update(employee);
@@ -369,5 +590,5 @@ public class UpdateController {
 		 return "updateResult";	
 		
 	}	
-
+	
 }

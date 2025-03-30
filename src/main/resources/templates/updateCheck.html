@@ -19,7 +19,7 @@
 	
     <div class="wrapper">	
 
-	  <form id="updateCheck" action="/updateResult" method="post">
+	  <form id="updateCheck" action="/updateResult" method="post" th:attr="DataErrorMessage=${errorMessage}">
 		
 		<div class="rist">
 			<p style="color: red;">＊は入力必須項目です</p>
@@ -27,7 +27,8 @@
 		     <label for="id">社員ID</label>
 			 <div class="inputForm">
 		     <input type="number" id="id" name="id" th:value="${id}" style="background-color: lightgray" readonly>
-			 <p class="errorMsg" th:text="${IdError}" style="color: red;"></p>
+			 <p class="errorMsg" th:if="${IdEmptyError}" th:text="${IdEmptyError}" style="color: red;"></p>
+			 <p class="errorMsg" th:if="${IdError}" th:text="${IdError}" style="color: red;"></p>
 			 </div>
 		  </div>
 		
@@ -35,7 +36,8 @@
 		     <label for="name">社員名<span style="color: red;">＊</span></label>
 			 <div class="inputForm">
 		     <input type="text" id="name" name="name" th:value="${name}" readonly>
-			 <p class="errorMsg" th:text="${NameError}" style="color: red;"></p>
+			 <p class="errorMsg" th:if="${NameEmptyError}" th:text="${NameEmptyError}" style="color: red;"></p>
+			 <p class="errorMsg" th:if="${NameError}" th:text="${NameError}" style="color: red;"></p>
 			 </div>
 		  </div>
 		
@@ -43,7 +45,8 @@
 		     <label for="age">年齢<span style="color: red;">＊</span></label>
 			 <div class="inputForm">
 		     <input type="text" id="age" name="age" th:value="${age}" readonly>
-			 <p class="errorMsg" th:text="${AgeError}" style="color: red;"></p>
+			 <p class="errorMsg" th:if="${AgeEmptyError}" th:text="${AgeEmptyError}" style="color: red;"></p>
+			 <p class="errorMsg" th:if="${AgeError}" th:text="${AgeError}" style="color: red;"></p>
 			 </div>	
 		  </div>
 		
@@ -51,7 +54,8 @@
 		     <label for="password">パスワード<span style="color: red;">＊</span></label>
 			 <div class="inputForm">
 		     <input type="password" id="password" name="password" th:value="${password}" readonly>
-			 <p class="errorMsg" th:text="${PwError}" style="color: red;"></p>
+			 <p class="errorMsg" th:if="${PwEmptyError}" th:text="${PwEmptyError}" style="color: red;"></p>
+			 <p class="errorMsg" th:if="${PwError}" th:text="${PwError}" style="color: red;"></p>
 			 </div>
 		  </div>
 		
@@ -59,7 +63,7 @@
 		     <label for="passwordCheck">パスワード確認</label>
 			 <div class="inputForm">
 		     <input type="password" id="passwordCheck" name="passwordCheck" th:value="${passwordCheck}" readonly>
-			 <p class="errorMsg" th:text="${PwcError}" style="color: red;"></p>
+			 <p class="errorMsg"th:if="${PwcError}" th:text="${PwcError}" style="color: red;"></p>
 			 </div>
 		  </div>
 		
@@ -67,7 +71,8 @@
 		     <label for="start_date">開始日<span style="color: red;">＊</span></label>
 			 <div class="inputForm">
 		     <input type="date" id="start_date" name="start_date" th:value="${#dates.format(startDate, 'yyyy-MM-dd')}" readonly>
-			 <p class="errorMsg" th:text="${SdError}" style="color: red;"></p>
+			 <p class="errorMsg" th:if="${SdEmptyError}" th:text="${SdEmptyError}" style="color: red;"></p>
+			 <p class="errorMsg" th:if="${SdError}" th:text="${SdError}" style="color: red;"></p>
 			 </div>
 		  </div>
 		
@@ -75,7 +80,8 @@
 		    <label for="end_date">終了日</label>
 			<div class="inputForm">
 		     <input type="date" id="end_date" name="end_date" th:value="${#dates.format(endDate, 'yyyy-MM-dd')}" readonly>
-			 <p class="errorMsg" th:text="${EdError}" style="color: red;"></p>
+			 <p class="errorMsg" th:if="${EdEmptyError}" th:text="${EdEmptyError}" style="color: red;"></p>
+			 <p class="errorMsg" th:if="${EdError}" th:text="${EdError}" style="color: red;"></p>
 			 </div>
 		  </div> 
 		
