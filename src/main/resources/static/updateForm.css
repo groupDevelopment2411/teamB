@@ -1,10 +1,15 @@
 @charset "UTF-8";
 
 .header {
-	display: flex;
 	align-content: end;
 	width: 90%;	
 	margin: 0 auto;
+	
+}
+
+.LoginDateTime {
+	display: flex;
+	justify-content: end;
 	
 }
 
@@ -43,7 +48,7 @@ label {
 }
 
 input {
-	width: 150px;
+	width: 170px;
 	height: 30px;
 	border: 1px solid;
 }

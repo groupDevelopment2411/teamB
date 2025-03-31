@@ -13,7 +13,9 @@
 	<div class="header">
 	  <header>
 		<h2><span style="color: red;">社員情報更新(入力)</span></h2>
-		
+		<div class="LoginDateTime">
+			<p th:text="${LoginDateTime}"></p>
+		</div>
 	  </header>
 	</div>
 	
@@ -37,7 +39,6 @@
         <div class="item">
 			<div class="formTitle">
             <label for="name">社員名<span style="color: red;">＊</span></label>
-			<p class="rule">※日本語のみ入力可能</p>
 			</div>
 			<div class="inputForm">
             <input type="text" id="name" name="name" th:value="${name}">
@@ -61,7 +62,7 @@
         <div class="item"> 
 			<div class="formTitle">
             <label for="password">パスワード<span style="color: red;">＊</span></label>
-			<p class="rule">※半角英数字のみ使用可能</p>
+			<p class="rule">※半角英数字のみ(両方使用必須)</p>
 			</div>
 			<div class="inputForm">
             <input type="password" pattern="^[a-zA-Z0-9]+$" minlength="8" id="password" name="password" th:value="${password}">
