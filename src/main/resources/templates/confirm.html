@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>社員情報登録（確認）</title>
+    <link rel="stylesheet" href="/confirm.css"> <!-- CSSファイルを適用 -->
+</head>
+<body>
+    <h3>社員情報登録（確認）</h3>
+    
+    <div class="wrapper">
+        <form action="/insert" method="post">
+            <div class="form-group">
+                <label for="name" class="required">社員名:</label>
+                <input type="text" name="name" id="name" th:value="${name}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="age" class="required">年齢:</label>
+                <input type="text" name="age" id="age" th:value="${age}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="required">パスワード:</label>
+                <input type="password" name="password" id="password" th:value="${password}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password2" class="required">パスワード確認:</label>
+                <input type="password" name="password2" id="password2" th:value="${password2}" required>
+            </div>
+                
+             </div>
+        <p class="footer">Copyright &copy; 2022</p>
+        
+         <h2>こちらで登録します。よろしいですか？</h2>
+   		 </div>
+
+  		<!--直線-->
+			<div class="container">
+ 			 <div class="line"></div>
+				</div>
+				
+           <div class="button-container">
+    <!-- 登録ボタン -->
+    <form action="/insert" method="post">
+        <input type="submit" value="登録">
+    </form>
+
+    <!-- 戻るボタン -->
+    <form action="/goBack" method="post">
+    <input type="hidden" name="name" id="name" th:value="${name}">
+    <input type="hidden" name="age" id="age" th:value="${age}">
+    <input type="hidden" name="password" id="password" th:value="${password}">
+    <button type="submit">戻る</button>
+</form>
+</div>	      
+</body>
+</html>

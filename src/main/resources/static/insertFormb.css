@@ -1,0 +1,108 @@
+@charset "UTF-8";
+
+.employee{
+	font-size: x-large;
+	margin: top 30px;
+    color: red;
+    padding-top: 20pt;
+    border-bottom: 3px solid black
+}
+
+/* フォーム全体のスタイル */
+.wrapper {
+    width: 450px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* ラベルと入力欄を横並びにする */
+.form-group {
+    display: flex;
+    align-items: center; /* 縦方向の中央揃え */
+    justify-content: flex-start; /* 左寄せ */
+    margin-bottom: 30px; /* 各入力フィールドの間隔をさらに広げる */
+    
+}
+
+/* ラベルのスタイル */
+label {
+    font-weight: bold;
+    min-width: 150px; /* ラベルの幅をもっと広げる */
+    padding-right: 100px; /* ラベルと入力欄の間の余白をさらに広げる */
+    text-align: left;
+}
+/* 必須フィールドのラベルに赤いアスタリスクを追加 */
+label.required::after {
+    content: " *";
+    color: red;
+    font-weight: bold;
+}
+
+/* 入力フィールドのスタイル */
+input[type="text"],
+input[type="number"],
+input[type="password"] {
+    flex: 1; /* 入力フィールドを可変に */
+    padding: 10px;
+    border-radius: 5px;
+    width: 400px; /* 入力欄の幅を広げる */
+}
+
+.container {
+  width: 450px;  /* これは変更しない */
+  margin: 0 auto; /* もし中央揃えにしたい場合 */
+}
+
+/* ボタンのコンテナ */
+.button-container {
+    display: flex; /* 横並び */
+    justify-content: center; /* 中央寄せ */
+    gap: 30px; /* ボタン間の余白を広げる */
+    margin-top: 20px;
+}
+
+.footer {
+  position: relative;
+}
+
+.line {
+  border-top: 2px solid black;
+  width: 100vw;
+  position: relative;
+  z-index: 1; /* 線を前面に */
+}
+
+.copyright {
+  position: absolute;
+  bottom: 100%; /* 線の上に配置 */
+  right: 30px; /* 右端から30pxの位置 */
+  font-size: 14px;
+  background: white; /* 背景を白くして線に重ならないように */
+  padding: 2px 5px;
+  z-index: 2; /* 文字を前面に */
+}
+
+
+/* 共通のボタンスタイル */
+.button-container input[type="submit"],
+.button-container button {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px 30px;
+    border: 2px solid black;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* 登録ボタン */
+.button-container input[type="submit"] {
+    background-color: yellow;
+    color: black;
+}
+
+/* 戻るボタン */
+.button-container button {
+    background-color: white;
+    color: black;
+}

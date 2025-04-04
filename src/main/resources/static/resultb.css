@@ -1,0 +1,72 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #fff;
+}
+
+.title {
+    color:red;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: left;
+  	border-bottom: 3px solid black
+}
+
+.box {
+    padding: 100px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+}
+.footer {
+  position: relative;
+  text-align: center; /* コピーライトを中央揃え */
+}
+
+.line {
+  border-top: 2px solid black;
+  width: 100vw;
+  position: relative;
+  z-index: 1; /* 線を前面に */
+}
+
+.copyright {
+  position: absolute;
+  bottom: 100%; /* 線の上に配置 */
+  right: 30px; /* 右端から30pxの位置 */
+  font-size: 14px;
+  background: white; /* 背景を白くして線に重ならないように */
+  padding: 2px 5px;
+  z-index: 2; /* 文字を前面に */
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+    
+}
+
+.menu-btn, .search-btn {
+    font-size: 16px;
+    padding: 10px 20px;
+    border: 1px solid #000;
+    cursor: pointer;
+}
+
+.menu-btn {
+    background-color: #fff;
+}
+
+.search-btn {
+    background-color: yellow;
+}
+
+.footer {
+    margin-top: 30px;
+    font-size: 14px;
+    text-align: center;
+}
