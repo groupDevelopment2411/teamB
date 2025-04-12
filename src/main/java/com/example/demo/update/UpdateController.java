@@ -178,9 +178,7 @@ public class UpdateController {
 		        return "updateform";
 		    }
 		 
-		try {
-			 Integer.parseInt(id); 
-	        } catch (NumberFormatException e) {
+		    if (!id.matches("^[0-9]+$")) {
 	        	m.addAttribute("id", id);
 		        m.addAttribute("name", name);
 		        m.addAttribute("age", age);
@@ -188,8 +186,8 @@ public class UpdateController {
 		        m.addAttribute("endDate", endDate);
 		        m.addAttribute("password", password);
 		        m.addAttribute("passwordCheck", passwordCheck);
-	            m.addAttribute("IdError", "数値で入力してください。");
-	            errors.add("社員IDは数値で入力してください。");
+	            m.addAttribute("IdError", "半角数字で入力してください。");
+	            errors.add("社員IDは半角数字で入力してください。");
 	            //return "updateForm";
 	        }
 		 
@@ -215,10 +213,14 @@ public class UpdateController {
 	    if (age == null || age.trim().isEmpty()) {
 		    m.addAttribute("AgeEmptyError", "年齢を入力してください。");
 	        errors.add("年齢を入力してください。");
-	    }else {
-		 try {
-	            Integer.parseInt(age);
-	        } catch (NumberFormatException e) {
+	    }
+	  //エラーメッセージをjsへ渡す為の記述
+	    if (!errors.isEmpty()) {
+	        m.addAttribute("errorMessage", String.join("\n", errors)); 
+	        return "updateForm";
+	    }
+	         
+			 if (!age.matches("^[0-9]+$")) {
 	        	m.addAttribute("id", id);
 		        m.addAttribute("name", name);
 		        m.addAttribute("age", age);
@@ -226,11 +228,11 @@ public class UpdateController {
 		        m.addAttribute("endDate", endDate);
 		        m.addAttribute("password", password);
 		        m.addAttribute("passwordCheck", passwordCheck);
-	            m.addAttribute("AgeError", "数値で入力してください。");
-	            errors.add("年齢は数値で入力してください。");
+	            m.addAttribute("AgeError", "半角数字で入力してください。");
+	            errors.add("年齢は半角数字で入力してください。");
 	            //return "updateForm";
 	           }
-	       } 
+	        
 	  //エラーメッセージをjsへ渡す為の記述
 	    if (!errors.isEmpty()) {
 	        m.addAttribute("errorMessage", String.join("\n", errors)); 
@@ -256,7 +258,7 @@ public class UpdateController {
 	        m.addAttribute("password", password);
 	        m.addAttribute("passwordCheck", passwordCheck);
 		    m.addAttribute("PwError", "8文字以上の半角英数字で入力してください。");
-		    errors.add("パスワードは8文字以上の英数字で入力してください。");
+		    errors.add("パスワードは8文字以上の半角英数字で入力してください。");
 		     //return "updateForm";
 		    }
 	  //エラーメッセージをjsへ渡す為の記述
@@ -404,9 +406,7 @@ public class UpdateController {
 		    }
 		 
 		 
-		try {
-			 Integer.parseInt(id); 
-	        } catch (NumberFormatException e) {
+		    if (!id.matches("^[0-9]+$")){
 	        	m.addAttribute("id", id);
 		        m.addAttribute("name", name);
 		        m.addAttribute("age", age);
@@ -414,8 +414,8 @@ public class UpdateController {
 		        m.addAttribute("endDate", endDate);
 		        m.addAttribute("password", password);
 		        m.addAttribute("passwordCheck", passwordCheck);
-	            m.addAttribute("IdError", "数値で入力してください。");
-	            errors.add("社員IDは数値で入力してください。");
+	            m.addAttribute("IdError", "半角数字で入力してください。");
+	            errors.add("社員IDは半角数字で入力してください。");
 	            //return "updateCheck";
 	        }
 		 
@@ -453,10 +453,15 @@ public class UpdateController {
 	        m.addAttribute("passwordCheck", passwordCheck);
 		    m.addAttribute("AgeEmptyError", "年齢を入力してください。");
 	        errors.add("年齢を入力してください。");
-	    }else {
-		 try {
-	            Integer.parseInt(age);
-	        } catch (NumberFormatException e) {
+	    }
+	    
+	    //エラーメッセージをjsへ渡す為の記述
+	    if (!errors.isEmpty()) {
+	        m.addAttribute("errorMessage", String.join("\n", errors)); 
+	        return "updateForm";
+	    }
+	    
+	    if (!age.matches("^[0-9]+$")) {
 	        	m.addAttribute("id", id);
 		        m.addAttribute("name", name);
 		        m.addAttribute("age", age);
@@ -464,11 +469,11 @@ public class UpdateController {
 		        m.addAttribute("endDate", endDate);
 		        m.addAttribute("password", password);
 		        m.addAttribute("passwordCheck", passwordCheck);
-	            m.addAttribute("AgeError", "数値で入力してください。");
-	            errors.add("年齢は数値で入力してください。");
+	            m.addAttribute("AgeError", "半角数字で入力してください。");
+	            errors.add("年齢は半角数字で入力してください。");
 	            //return "updateCheck";
 	           }
-	       } 
+	      
 	  //エラーメッセージをjsへ渡す為の記述
 	    if (!errors.isEmpty()) {
 	        m.addAttribute("errorMessage", String.join("\n", errors)); 
